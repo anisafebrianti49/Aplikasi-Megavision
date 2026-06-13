@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Warna saat EditText sedang difokus (diklik) -->
+    <item android:color="@color/megavision_blue" android:state_focused="true" />
+    <!-- Warna saat EditText tidak difokus (default) -->
+    <item android:color="@color/input_stroke_inactive" />
+</selector>

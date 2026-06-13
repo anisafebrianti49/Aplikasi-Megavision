@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <!-- AppBar dengan header biru Megavision -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/megavision_blue"
+        app:elevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="100dp">
+
+            <TextView
+                android:id="@+id/tv_judul_profil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_ubah_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:padding="4dp"
+                android:text="Ubah Data"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_judul_profil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_judul_profil" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Konten utama bisa di-scroll -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <!-- Card Header Profil (overlap dari AppBar) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-72dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <!-- Foto Profil circular -->
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_foto_profil"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_default_avatar"
+                        android:scaleType="centerCrop"
+                        app:strokeWidth="2dp"
+                        app:strokeColor="@color/megavision_blue"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <!-- Badge "Personal" -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personal"
+                        android:textSize="11sp"
+                        android:textColor="@color/megavision_blue"
+                        app:chipBackgroundColor="@color/megavision_blue_10"
+                        app:chipStrokeColor="@color/megavision_blue"
+                        app:chipStrokeWidth="1dp"
+                        app:layout_constraintStart_toEndOf="@id/iv_foto_profil"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_pengguna"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Rubby Ferdiansyah"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@id/iv_foto_profil"
+                        app:layout_constraintTop_toBottomOf="@id/chip_personal"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_nomor_pelanggan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Nomor Pelanggan : 01120482"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
+                        app:layout_constraintStart_toEndOf="@id/iv_foto_profil"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nama_pengguna"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Data Profil (list item modern) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="8dp">
+
+                    <!-- Row: Tanggal Lahir -->
+                    <include layout="@layout/item_profile_row"
+                        android:id="@+id/row_tanggal_lahir" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Row: Kode Referral -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/row_kode_referral"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kode Refferal"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary"
+                            android:id="@+id/tv_kode_referral_label"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_kode_referral_value"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="01120482"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginTop="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_kode_referral_label"
+                            app:layout_constraintEnd_toStartOf="@id/btn_copy_referral" />
+
+                        <ImageButton
+                            android:id="@+id/btn_copy_referral"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_copy"
+                            android:background="@drawable/bg_icon_button_gray"
+                            android:contentDescription="Salin"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Row: Email + Badge Terverifikasi -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="14dp">
+
+                        <TextView
+                            android:id="@+id/tv_email_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_email_value"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="rubbyferdiansyaah@gmail.com"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginTop="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_email_label"
+                            app:layout_constraintEnd_toStartOf="@id/chip_verified" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terverifikasi"
+                            android:textSize="11sp"
+                            android:textColor="#2E7D32"
+                            app:chipBackgroundColor="#E8F5E9"
+                            app:chipStrokeColor="#2E7D32"
+                            app:chipStrokeWidth="0.5dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Row: Nomor Telepon -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="14dp">
+
+                        <TextView
+                            android:id="@+id/tv_telepon_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Telepon"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_nomor_telepon_value"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Tidak Ada Nomor Telepon"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_hint"
+                            android:textStyle="italic"
+                            android:layout_marginTop="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_telepon_label"
+                            app:layout_constraintEnd_toStartOf="@id/btn_tambah_telepon" />
+
+                        <ImageButton
+                            android:id="@+id/btn_tambah_telepon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_add_circle"
+                            android:background="@drawable/bg_icon_button_gray"
+                            android:contentDescription="Tambah nomor telepon"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Row: Password -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary"
+                            android:id="@+id/tv_password_label"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="••••••••"
+                            android:textSize="17sp"
+                            android:textColor="@color/text_primary"
+                            android:letterSpacing="0.2"
+                            android:layout_marginTop="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_password_label"
+                            app:layout_constraintEnd_toStartOf="@id/btn_edit_password" />
+
+                        <ImageButton
+                            android:id="@+id/btn_edit_password"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_edit"
+                            android:background="@drawable/bg_icon_button_gray"
+                            android:contentDescription="Ubah password"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Menu Akun -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="4dp">
+
+                    <!-- Ganti Akun -->
+                    <LinearLayout
+                        android:id="@+id/row_ganti_akun"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_swap_account"
+                            android:contentDescription="@null"
+                            app:tint="@color/megavision_blue" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ganti Akun"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginStart="12dp" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:contentDescription="@null"
+                            app:tint="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Kebijakan & Privasi -->
+                    <LinearLayout
+                        android:id="@+id/row_kebijakan_privasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_policy"
+                            android:contentDescription="@null"
+                            app:tint="@color/megavision_blue" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Kebijakan &amp; Privasi"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginStart="12dp" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:contentDescription="@null"
+                            app:tint="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp" android:background="#F0F0F0"/>
+
+                    <!-- Hapus Akun -->
+                    <LinearLayout
+                        android:id="@+id/row_hapus_akun"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_delete_account"
+                            android:contentDescription="@null"
+                            app:tint="#E53935" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Hapus Akun"
+                            android:textSize="15sp"
+                            android:textColor="#E53935"
+                            android:layout_marginStart="12dp" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:contentDescription="@null"
+                            app:tint="#E53935" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tombol Keluar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_keluar"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Keluar"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/megavision_blue"
+                app:strokeColor="@color/megavision_blue"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="16dp"
+                app:backgroundTint="@android:color/transparent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
