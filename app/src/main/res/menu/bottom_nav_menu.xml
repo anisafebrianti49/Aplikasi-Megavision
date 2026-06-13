@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_tagihan"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="TAGIHAN" />
+
+    <item
+        android:id="@+id/menu_inbox"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="INBOX" />
+
+    <item
+        android:id="@+id/menu_bantuan"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="BANTUAN" />
+</menu>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#2A64D4">
+        <ImageView
+            android:id="@+id/btnBackDetail"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@android:color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Bantuan"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pertanyaan :"
+                android:textStyle="bold"
+                android:textColor="#2A64D4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bagaimana Cara Mengajukan Upgrade?"
+                android:textSize="16sp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#333333"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Solusi"
+                android:textStyle="bold"
+                android:textColor="#2A64D4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cara mengajukan perubahan paket (upgrade) bisa menghubungi Call Center via telepon, WhatsApp, Email, Media Sosial, dan Website. Atau pelanggan bisa langsung datang ke kantor Megavision terdekat."
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#555555"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apakah saran ini menyelesaikan masalah Anda?"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ya, masalah terpecahkan"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_outline"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
