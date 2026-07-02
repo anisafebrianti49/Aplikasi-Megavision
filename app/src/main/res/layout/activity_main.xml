@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="@drawable/bg_gradient_blue">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <!-- Header: Welcome + Ganti Akun -->
+            <!-- Header: Welcome + Ganti Akun (di atas area biru gelap gradasi) -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Welcome"
-                        android:textColor="#64748B"
+                        android:textColor="#D7E3FA"
                         android:textSize="13sp" />
 
                     <TextView
@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="User Name"
-                        android:textColor="#0F172A"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginTop="2dp" />
@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="user@gmail.com"
-                        android:textColor="#64748B"
+                        android:textColor="#D7E3FA"
                         android:textSize="12sp"
                         android:layout_marginTop="2dp" />
 
@@ -66,20 +66,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Status : Online"
-                        android:textColor="#10B981"
+                        android:textColor="#34D399"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
 
-                <!-- FIXED: Ganti MaterialButton dengan Button biasa, hapus insetTop/insetBottom -->
                 <Button
                     android:id="@+id/btn_ganti_akun"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/btn_ganti_akun_bg"
+                    android:background="@drawable/bg_rounded_light_blue"
                     android:text="Ganti Akun"
                     android:textColor="#1E293B"
                     android:textSize="11sp"
@@ -87,7 +86,7 @@
                     android:paddingRight="12dp" />
             </RelativeLayout>
 
-            <!-- Banner Promo -->
+            <!-- Banner Promo: tetap solid biru (warna awal gradasi) supaya menonjol -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
@@ -96,201 +95,207 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#2F66D4">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#0066FF">
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PROMO BONUS UP SPEED"
+                        android:textColor="#FFD700"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:letterSpacing="0.05" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PROMO BONUS UP SPEED"
-                            android:textColor="#FFD700"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:letterSpacing="0.05" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nikmati Kecepatan Melimpah\nDari 100 Mbps ke 200 Mbps"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingMultiplier="1.2" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nikmati Kecepatan Melimpah\nDari 100 Mbps ke 200 Mbps"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="6dp"
-                            android:lineSpacingMultiplier="1.2" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*Syarat dan ketentuan berlaku"
-                            android:textColor="#E0F2FE"
-                            android:textSize="10sp"
-                            android:layout_marginTop="4dp" />
-                    </LinearLayout>
-                </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*Syarat dan ketentuan berlaku"
+                        android:textColor="#EAF1FB"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Grid Menu -->
-            <GridLayout
+            <!-- Grid Menu: dibungkus panel terang supaya label tetap terbaca -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="4"
-                android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#F4F6F9">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <GridLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:strokeColor="#E2E8F0"
-                        app:strokeWidth="1dp">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@android:drawable/ic_dialog_dialer"
-                            app:tint="#0066FF"
-                            android:contentDescription="Semua Menu" />
-                    </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:columnCount="4"
+                    android:alignmentMode="alignMargins"
+                    android:columnOrderPreserved="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Semua Menu"
-                        android:textSize="11sp"
-                        android:layout_marginTop="6dp"
-                        android:textColor="#334155"
-                        android:gravity="center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:strokeColor="#E2E8F0"
-                        app:strokeWidth="1dp">
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:strokeColor="#E2E8F0"
+                            app:strokeWidth="1dp">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@android:drawable/ic_dialog_dialer"
+                                app:tint="#2F66D4"
+                                android:contentDescription="Semua Menu" />
+                        </androidx.cardview.widget.CardView>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rp"
-                            android:layout_gravity="center"
-                            android:textStyle="bold"
-                            android:textColor="#0066FF"
-                            android:textSize="16sp" />
-                    </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Metode\nPembayaran"
-                        android:textSize="11sp"
-                        android:layout_marginTop="6dp"
-                        android:textColor="#334155"
-                        android:gravity="center" />
-                </LinearLayout>
+                            android:text="Semua Menu"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#334155"
+                            android:gravity="center" />
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:strokeColor="#E2E8F0"
-                        app:strokeWidth="1dp">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@android:drawable/stat_sys_phone_call"
-                            app:tint="#0066FF"
-                            android:contentDescription="Layanan Pengaduan" />
-                    </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Layanan\nPengaduan"
-                        android:textSize="11sp"
-                        android:layout_marginTop="6dp"
-                        android:textColor="#334155"
-                        android:gravity="center" />
-                </LinearLayout>
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:strokeColor="#E2E8F0"
+                            app:strokeWidth="1dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rp"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textColor="#2F66D4"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Metode\nPembayaran"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#334155"
+                            android:gravity="center" />
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:strokeColor="#E2E8F0"
-                        app:strokeWidth="1dp">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@android:drawable/checkbox_on_background"
-                            app:tint="#0066FF"
-                            android:contentDescription="Upgrade Paket" />
-                    </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Upgrade Paket"
-                        android:textSize="11sp"
-                        android:layout_marginTop="6dp"
-                        android:textColor="#334155"
-                        android:gravity="center" />
-                </LinearLayout>
-            </GridLayout>
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:strokeColor="#E2E8F0"
+                            app:strokeWidth="1dp">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@android:drawable/stat_sys_phone_call"
+                                app:tint="#2F66D4"
+                                android:contentDescription="Layanan Pengaduan" />
+                        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Layanan\nPengaduan"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#334155"
+                            android:gravity="center" />
+                    </LinearLayout>
 
-            <!-- Tagihan Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:strokeColor="#E2E8F0"
+                            app:strokeWidth="1dp">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@android:drawable/checkbox_on_background"
+                                app:tint="#2F66D4"
+                                android:contentDescription="Upgrade Paket" />
+                        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Upgrade Paket"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#334155"
+                            android:gravity="center" />
+                    </LinearLayout>
+                </GridLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Tagihan Card: solid biru + divider dashed (bg_dashed_line) -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -300,7 +305,7 @@
                 android:layout_marginBottom="12dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:cardBackgroundColor="#0066FF">
+                app:cardBackgroundColor="#2F66D4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -335,10 +340,11 @@
                             android:textStyle="bold" />
                     </RelativeLayout>
 
+                    <!-- Divider pakai bg_dashed_line, gaya garis putus-putus seperti tiket -->
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#80FFFFFF"
+                        android:layout_height="2dp"
+                        android:background="@drawable/bg_dashed_line"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp" />
 
@@ -358,7 +364,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Total Tagihan"
-                                android:textColor="#E0F2FE"
+                                android:textColor="#EAF1FB"
                                 android:textSize="12sp" />
                             <TextView
                                 android:id="@+id/tv_total_tagihan"
@@ -379,7 +385,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Periode"
-                                android:textColor="#E0F2FE"
+                                android:textColor="#EAF1FB"
                                 android:textSize="12sp" />
                             <TextView
                                 android:id="@+id/tv_periode"
@@ -400,7 +406,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Jenis Paket"
-                                android:textColor="#E0F2FE"
+                                android:textColor="#EAF1FB"
                                 android:textSize="12sp" />
                             <TextView
                                 android:id="@+id/tv_jenis_paket"
@@ -421,7 +427,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Jatuh Tempo"
-                                android:textColor="#E0F2FE"
+                                android:textColor="#EAF1FB"
                                 android:textSize="12sp" />
                             <TextView
                                 android:id="@+id/tv_jatuh_tempo"
@@ -436,7 +442,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Paket Internet & TV -->
+            <!-- Paket Internet & TV (posisi ini sudah di area gradasi yang lebih terang) -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -455,7 +461,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="Lihat Semua"
-                    android:textColor="#0066FF"
+                    android:textColor="#2F66D4"
                     android:textStyle="bold"
                     android:textSize="13sp" />
             </RelativeLayout>
@@ -471,13 +477,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="260dp"
                         android:layout_height="130dp"
-                        android:layout_marginEnd="14dp"
                         app:cardCornerRadius="16dp"
-                        app:cardBackgroundColor="#0EA5E9">
+                        app:cardBackgroundColor="#2F66D4">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -487,11 +494,18 @@
                             android:textStyle="bold"
                             android:textSize="18sp" />
                     </androidx.cardview.widget.CardView>
+
+                    <!-- Pemisah gaya sobekan tiket pakai bg_dashed_vertical -->
+                    <View
+                        android:layout_width="14dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_dashed_vertical" />
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="260dp"
                         android:layout_height="130dp"
                         app:cardCornerRadius="16dp"
-                        app:cardBackgroundColor="#F1F5F9">
+                        app:cardBackgroundColor="#F4F6F9">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -517,7 +531,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sales advisor anda"
-                    android:textColor="#64748B"
+                    android:textColor="#475569"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -525,7 +539,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="#FFFFFF"
+                    android:background="@drawable/bg_rounded_light_blue"
                     android:padding="12dp"
                     android:layout_marginTop="8dp">
 
@@ -572,7 +586,7 @@
         app:cardCornerRadius="27dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardElevation="6dp"
-        app:strokeColor="#0066FF"
+        app:strokeColor="#2F66D4"
         app:strokeWidth="1.5dp">
         <TextView
             android:layout_width="wrap_content"
@@ -580,7 +594,7 @@
             android:text="CS"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="#0066FF"
+            android:textColor="#2F66D4"
             android:layout_gravity="center" />
     </androidx.cardview.widget.CardView>
 
@@ -592,7 +606,7 @@
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         app:itemIconSize="22dp"
-        app:itemIconTint="#0066FF"
+        app:itemIconTint="#2F66D4"
         app:itemTextColor="#64748B"
         app:labelVisibilityMode="labeled"
         app:elevation="8dp"
