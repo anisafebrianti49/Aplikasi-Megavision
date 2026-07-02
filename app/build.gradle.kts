@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    id("com.google.gms.google-services") version "4.4.1" apply false
 }
 
 android {
@@ -36,12 +38,15 @@ android {
 }
 
 dependencies {
-    // Di sini sudah diperbaiki menjadi androidx.core.ktx agar tidak unresolved reference lagi
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // SUDAH DITAMBAHKAN: Library Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database-ktx:20.3.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

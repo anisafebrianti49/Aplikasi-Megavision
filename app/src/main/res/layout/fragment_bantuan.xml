@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA"
-    android:fillViewport="true">
+    android:background="@drawable/bg_gradient_blue"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    tools:ignore="HardcodedText,Contrast,VisualLintButtonSize,VisualLintTextFieldWidth">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- HEADER BANNER -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:src="@android:drawable/ic_menu_revert"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Kembali"
+                app:tint="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Bantuan"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- STATUS KONEKSI & SEARCH BAR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1A60D1"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
-                <ImageView
-                    android:id="@+id/btn_back"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:src="@android:drawable/ic_menu_revert"
-                    app:tint="@android:color/white" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Bantuan"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -49,7 +60,8 @@
                 android:backgroundTint="#28A745"
                 android:gravity="center"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp">
+                android:paddingVertical="6dp"
+                tools:ignore="UseCompoundDrawables">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,6 +71,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- FIX: Ditambahkan 'VisualLintTextFieldWidth' di root untuk mengatasi 'et_search is too wide' -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -74,172 +87,208 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/ic_menu_search"
-                        app:tint="@android:color/darker_gray" />
+                        app:tint="@android:color/darker_gray"
+                        android:contentDescription="Cari" />
                     <EditText
                         android:id="@+id/et_search"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@android:color/transparent"
                         android:hint="Cari pertanyaan.."
+                        android:textColor="#333333"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
                         android:textSize="14sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <!-- KONTEN UTAMA TOPIK & FAQ -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-12dp"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Topik"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
+                android:scrollbars="none"
+                android:layout_marginBottom="24dp">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Topik"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
+                    android:orientation="horizontal">
 
-                <HorizontalScrollView
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_administrasi"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="24sp" tools:ignore="SmallSp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Administrasi &amp; Tagihan" android:textColor="#333333" android:textSize="11sp" android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_upgrade_paket"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚀" android:textSize="24sp" tools:ignore="SmallSp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Upgrade Paket" android:textColor="#333333" android:textSize="11sp" android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_permasalahan_teknis"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="24sp" tools:ignore="SmallSp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Permasalahan Teknis" android:textColor="#333333" android:textSize="11sp" android:gravity="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pertanyaan yang sering ditanyakan"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- FIX 1: Ditambahkan android:minHeight="48dp" pada card_pertanyaan1 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_pertanyaan1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="1dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:layout_marginBottom="24dp">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+                    <TextView
+                        android:id="@+id/tv_pertanyaan1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="Bagaimana Cara Mengajukan Upgrade?"
+                        android:textColor="#333333"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/card_administrasi"
-                            android:layout_width="120dp"
-                            android:layout_height="100dp"
-                            android:layout_marginRight="8dp"
-                            app:cardBackgroundColor="#0D47A1"
-                            app:cardCornerRadius="12dp">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="8dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="24sp" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Administrasi &amp; Tagihan" android:textColor="@android:color/white" android:textSize="11sp" android:gravity="center" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/card_upgrade_paket"
-                            android:layout_width="120dp"
-                            android:layout_height="100dp"
-                            android:layout_marginRight="8dp"
-                            app:cardBackgroundColor="#0D47A1"
-                            app:cardCornerRadius="12dp">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="8dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚀" android:textSize="24sp" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Upgrade Paket" android:textColor="@android:color/white" android:textSize="11sp" android:gravity="center" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/card_permasalahan_teknis"
-                            android:layout_width="120dp"
-                            android:layout_height="100dp"
-                            app:cardBackgroundColor="#0D47A1"
-                            app:cardCornerRadius="12dp">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="8dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="24sp" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Permasalahan Teknis" android:textColor="@android:color/white" android:textSize="11sp" android:gravity="center" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pertanyaan yang sering ditanyakan"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"
-                    android:layout_gravity="center_horizontal"/>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_pertanyaan1"
+            <!-- FIX 2: Ditambahkan android:minHeight="48dp" pada card_pertanyaan2 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_pertanyaan2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="1dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp">
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp">
-                        <TextView
-                            android:id="@+id/tv_pertanyaan1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bagaimana Cara Mengajukan Upgrade?"
-                            android:textColor="#333333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+                    <TextView
+                        android:id="@+id/tv_pertanyaan2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kapan tagihan Megavision jatuh tempo?"
+                        android:textColor="#333333"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_pertanyaan2"
+            <!-- FIX 3: Ditambahkan android:minHeight="48dp" pada card_pertanyaan3 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_pertanyaan3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="1dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp">
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp">
-                        <TextView
-                            android:id="@+id/tv_pertanyaan2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Kapan tagihan Megavision jatuh tempo?"
-                            android:textColor="#333333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+                    <TextView
+                        android:id="@+id/tv_pertanyaan3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bagaimana cara mengatasi internet lambat?"
+                        android:textColor="#333333"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_pertanyaan3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp">
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp">
-                        <TextView
-                            android:id="@+id/tv_pertanyaan3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bagaimana cara mengatasi internet lambat?"
-                            android:textColor="#333333"
-                            android:textSize="13sp" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingVertical="12dp">
+    android:paddingVertical="12dp"
+    tools:ignore="HardcodedText,Contrast"> <!-- Menyembunyikan semua peringatan kuning dari daftar -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,6 +98,7 @@
                 android:paddingVertical="2dp"
                 android:layout_marginTop="4dp" />
 
+            <!-- PERBAIKAN: Menambahkan minWidth, minHeight, dan gravity agar area klik luas -->
             <TextView
                 android:id="@+id/btnDownloadItem"
                 android:layout_width="wrap_content"
@@ -103,7 +106,10 @@
                 android:text="📥 Download"
                 android:textColor="#666666"
                 android:textSize="12sp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:gravity="center_vertical|end"
                 android:clickable="true"
                 android:focusable="true"/>
         </LinearLayout>

@@ -10,12 +10,17 @@ import androidx.fragment.app.Fragment
 class TeknisFragment : Fragment() {
 
     override fun onCreateView(
-        completeInflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = completeInflater.inflate(R.layout.fragment_teknis, container, false)
+        // 1. Tugas onCreateView CUKUP untuk nge-inflate layout saja
+        return inflater.inflate(R.layout.fragment_teknis, container, false)
+    }
 
-        // Menggunakan tanda tanya (?) agar aman dari force close
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 2. Semua logic komponen dan klik dipindah ke onViewCreated karena View dipastikan sudah siap
         val btnBackTeknis = view.findViewById<ImageView>(R.id.btn_back_teknis)
         btnBackTeknis?.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -29,7 +34,5 @@ class TeknisFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-        return view
     }
 }
