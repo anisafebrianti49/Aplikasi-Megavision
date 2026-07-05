@@ -44,12 +44,15 @@ class DetailSolusiUpgradeFragment : Fragment() {
                 .commit()
         }
 
-        // 3. Aksi Tombol TIDAK (Pindah ke LiveChatFragment tiruan yang sudah kamu buat)
         btnTidak?.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, LiveChatFragment())
-                .addToBackStack(null)
-                .commit()
+            // TODO: Ini tombol ke Live Chat.
+            // Menunggu digabungkan dengan class Live Chat yang asli buatan teman.
+            // Jika sudah di-merge, hapus tanda komentar (//) di bawah ini dan sesuaikan nama fragment-nya:
+
+            // parentFragmentManager.beginTransaction()
+            //     .replace(R.id.fragment_container, NamaClassLiveChatAsli())
+            //     .addToBackStack(null)
+            //     .commit()
+        }
         }
     }
-}
