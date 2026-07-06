@@ -1,5 +1,6 @@
 package com.example.aplikasimegavision
 
+import android.content.Intent
 import com.example.aplikasimegavision.R
 import android.os.Bundle
 import android.widget.Button
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnCsFloating.setOnClickListener {
-            Toast.makeText(this, "Menghubungi Sales Advisor Resmi...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, FiturDheniaActivity::class.java)
+            startActivity(intent)
         }
 
         bottomNavigation.setOnItemSelectedListener { item ->
