@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding & Spacing -->
+    <dimen name="screen_padding_h">20dp</dimen>
+    <dimen name="section_margin_top">24dp</dimen>
+
+    <!-- Corner Radius -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="banner_corner_radius">18dp</dimen>
+
+    <!-- Text -->
+    <dimen name="text_small">13sp</dimen>
+    <dimen name="text_section_title">17sp</dimen>
+
+    <!-- Menu Icon -->
+    <dimen name="menu_icon_box">58dp</dimen>
+    <dimen name="menu_icon_size">26dp</dimen>
+
+    <!-- Package Card -->
+    <dimen name="package_card_width">180dp</dimen>
+    <dimen name="package_card_height">130dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_size">58dp</dimen>
+
+    <!-- Bottom Navigation -->
+    <dimen name="bottom_nav_height">68dp</dimen>
+</resources>

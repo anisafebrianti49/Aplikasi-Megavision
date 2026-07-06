@@ -84,6 +84,7 @@
                     android:id="@+id/btn_ganti_akun"
                     android:layout_width="95dp"
                     android:layout_height="39dp"
+                    android:layout_marginEnd="32dp"
                     android:background="@drawable/bg_rounded_light_blue"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
@@ -92,7 +93,8 @@
                     android:textSize="@dimen/text_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.384" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
