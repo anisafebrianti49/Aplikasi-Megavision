@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_blue">
+    android:background="@drawable/bg_gradient_blue"
+    android:fitsSystemWindows="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,88 +22,97 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <!-- Header: Welcome + Ganti Akun (di atas area biru gelap gradasi) -->
-            <RelativeLayout
+            <!-- ============================================================
+                 HEADER: Welcome + Username + Status + Ganti Akun
+                 Welcome/Username/Status dipusatkan (center_horizontal)
+                 dan ukurannya diperbesar.
+                 ============================================================ -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingStart="@dimen/screen_padding_h"
                 android:paddingTop="28dp"
+                android:paddingEnd="@dimen/screen_padding_h"
                 android:paddingBottom="16dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/layout_user_info"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
-                    android:layout_toLeftOf="@id/btn_ganti_akun"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="12dp">
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_ganti_akun"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:letterSpacing="0.02"
                         android:text="Welcome"
-                        android:textColor="#D7E3FA"
-                        android:textSize="13sp" />
+                        android:textColor="#AFC3EC"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:gravity="center_horizontal"
                         android:text="User Name"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp" />
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="user@gmail.com"
-                        android:textColor="#D7E3FA"
-                        android:textSize="12sp"
-                        android:layout_marginTop="2dp" />
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status : Online"
+                        android:layout_marginTop="6dp"
+                        android:text="●  Online"
                         android:textColor="#34D399"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btn_ganti_akun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                    android:layout_width="95dp"
+                    android:layout_height="39dp"
                     android:background="@drawable/bg_rounded_light_blue"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     android:text="Ganti Akun"
                     android:textColor="#1E293B"
-                    android:textSize="11sp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp" />
-            </RelativeLayout>
+                    android:textSize="@dimen/text_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Banner Promo: tetap solid biru (warna awal gradasi) supaya menonjol -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ============================================================
+                 BANNER PROMO
+                 ============================================================ -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_padding_h"
+                android:layout_marginEnd="@dimen/screen_padding_h"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="@dimen/banner_corner_radius"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="#2F66D4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp"
                     android:gravity="center_vertical">
@@ -115,7 +127,7 @@
                         android:letterSpacing="0.05" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nikmati Kecepatan Melimpah\nDari 100 Mbps ke 200 Mbps"
                         android:textColor="#FFFFFF"
@@ -134,14 +146,16 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Grid Menu: dibungkus panel terang supaya label tetap terbaca -->
+            <!-- ============================================================
+                 GRID MENU
+                 ============================================================ -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="@dimen/screen_padding_h"
+                android:layout_marginEnd="@dimen/screen_padding_h"
                 android:layout_marginTop="8dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="#F4F6F9">
 
@@ -165,16 +179,16 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
                         <androidx.cardview.widget.CardView
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/menu_icon_box"
+                            android:layout_height="@dimen/menu_icon_box"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="@dimen/menu_icon_size"
+                                android:layout_height="@dimen/menu_icon_size"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/ic_dialog_dialer"
                                 app:tint="#2F66D4"
@@ -199,8 +213,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
                         <androidx.cardview.widget.CardView
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/menu_icon_box"
+                            android:layout_height="@dimen/menu_icon_box"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
@@ -234,16 +248,16 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
                         <androidx.cardview.widget.CardView
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/menu_icon_box"
+                            android:layout_height="@dimen/menu_icon_box"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="@dimen/menu_icon_size"
+                                android:layout_height="@dimen/menu_icon_size"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/stat_sys_phone_call"
                                 app:tint="#2F66D4"
@@ -259,7 +273,10 @@
                             android:gravity="center" />
                     </LinearLayout>
 
+                    <!-- Upgrade Paket: membuka daftar 3 paket baru di
+                         bagian "Paket Internet & TV" di bawah -->
                     <LinearLayout
+                        android:id="@+id/menu_upgrade_paket"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -268,16 +285,16 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
                         <androidx.cardview.widget.CardView
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/menu_icon_box"
+                            android:layout_height="@dimen/menu_icon_box"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="@dimen/menu_icon_size"
+                                android:layout_height="@dimen/menu_icon_size"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/checkbox_on_background"
                                 app:tint="#2F66D4"
@@ -295,15 +312,17 @@
                 </GridLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Tagihan Card: solid biru + divider dashed (bg_dashed_line) -->
+            <!-- ============================================================
+                 TAGIHAN CARD
+                 ============================================================ -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="@dimen/screen_padding_h"
+                android:layout_marginEnd="@dimen/screen_padding_h"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
                 app:cardElevation="3dp"
                 app:cardBackgroundColor="#2F66D4">
 
@@ -323,7 +342,7 @@
                             android:text="Tagihan Anda"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_section_title" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -340,7 +359,6 @@
                             android:textStyle="bold" />
                     </RelativeLayout>
 
-                    <!-- Divider pakai bg_dashed_line, gaya garis putus-putus seperti tiket -->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -357,7 +375,6 @@
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_columnWeight="1"
                             android:layout_marginBottom="16dp">
                             <TextView
@@ -379,7 +396,6 @@
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_columnWeight="1">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -400,7 +416,6 @@
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_columnWeight="1">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -421,7 +436,6 @@
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_columnWeight="1">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -442,20 +456,24 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Paket Internet & TV (posisi ini sudah di area gradasi yang lebih terang) -->
+            <!-- ============================================================
+                 PAKET INTERNET & TV
+                 3 paket upgrade: Ultra Gold, Platinum, Gamer Pro
+                 masing-masing kecepatan + harga per bulan.
+                 ============================================================ -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginTop="12dp">
+                android:paddingStart="@dimen/screen_padding_h"
+                android:paddingEnd="@dimen/screen_padding_h"
+                android:layout_marginTop="@dimen/section_margin_top">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Paket Internet &amp; TV"
                     android:textStyle="bold"
                     android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_section_title" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -471,8 +489,8 @@
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
                 android:layout_marginTop="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingStart="@dimen/screen_padding_h"
+                android:paddingEnd="@dimen/screen_padding_h"
                 android:clipToPadding="false">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -480,40 +498,131 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
+                    <!-- Ultra Gold 200 Mbps - Rp250.000/bulan -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="260dp"
-                        android:layout_height="130dp"
-                        app:cardCornerRadius="16dp"
+                        android:id="@+id/card_paket_ultra_gold"
+                        android:layout_width="@dimen/package_card_width"
+                        android:layout_height="@dimen/package_card_height"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
                         app:cardBackgroundColor="#2F66D4">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="350 Mbps\nSuper Cepat"
-                            android:layout_margin="20dp"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold"
-                            android:textSize="18sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ULTRA GOLD"
+                                android:textColor="#FFD700"
+                                android:textStyle="bold"
+                                android:textSize="11sp"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="200 Mbps"
+                                android:textColor="#FFFFFF"
+                                android:textStyle="bold"
+                                android:textSize="18sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Rp250.000 / bulan"
+                                android:textColor="#EAF1FB"
+                                android:textSize="12sp" />
+                        </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Pemisah gaya sobekan tiket pakai bg_dashed_vertical -->
                     <View
                         android:layout_width="14dp"
                         android:layout_height="100dp"
                         android:background="@drawable/bg_dashed_vertical" />
 
+                    <!-- Platinum 300 Mbps - Rp350.000/bulan -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="260dp"
-                        android:layout_height="130dp"
-                        app:cardCornerRadius="16dp"
+                        android:id="@+id/card_paket_platinum"
+                        android:layout_width="@dimen/package_card_width"
+                        android:layout_height="@dimen/package_card_height"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardBackgroundColor="#334155">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PLATINUM"
+                                android:textColor="#CBD5E1"
+                                android:textStyle="bold"
+                                android:textSize="11sp"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="300 Mbps"
+                                android:textColor="#FFFFFF"
+                                android:textStyle="bold"
+                                android:textSize="18sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Rp350.000 / bulan"
+                                android:textColor="#E2E8F0"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="14dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_dashed_vertical" />
+
+                    <!-- Gamer Pro 500 Mbps - Rp500.000/bulan -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_paket_gamer_pro"
+                        android:layout_width="@dimen/package_card_width"
+                        android:layout_height="@dimen/package_card_height"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
                         app:cardBackgroundColor="#F4F6F9">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Regular Paket\n175 Mbps"
-                            android:layout_margin="20dp"
-                            android:textColor="#1E293B"
-                            android:textStyle="bold"
-                            android:textSize="18sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GAMER PRO"
+                                android:textColor="#2F66D4"
+                                android:textStyle="bold"
+                                android:textSize="11sp"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="500 Mbps"
+                                android:textColor="#1E293B"
+                                android:textStyle="bold"
+                                android:textSize="18sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Rp500.000 / bulan"
+                                android:textColor="#475569"
+                                android:textSize="12sp" />
+                        </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -523,8 +632,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingStart="@dimen/screen_padding_h"
+                android:paddingEnd="@dimen/screen_padding_h"
                 android:layout_marginTop="24dp">
 
                 <TextView
@@ -561,13 +670,16 @@
 
                     <TextView
                         android:id="@+id/tv_sales_advisor"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Wiseptian Hidayat"
                         android:textColor="#334155"
                         android:layout_marginStart="12dp"
                         android:textStyle="bold"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:ellipsize="end"
+                        android:maxLines="1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -577,8 +689,8 @@
     <!-- Floating CS Button -->
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_cs_floating"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
         android:layout_alignParentEnd="true"
         android:layout_above="@id/bottom_navigation"
         android:layout_marginEnd="16dp"
@@ -598,11 +710,19 @@
             android:layout_gravity="center" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation: wrap_content + minHeight, BUKAN tinggi fixed.
+         Ini kunci universal fix -> di HP manapun (Xiaomi, Samsung, Oppo,
+         Pixel, dst) dan di kondisi apapun (gesture nav, 3-button nav,
+         font besar/aksesibilitas), tinggi nav bar akan MENYESUAIKAN
+         kontennya sendiri, bukan dipaksa masuk ke angka tetap yang
+         bisa bikin ikon+label numpuk/gepeng. -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/bottom_nav_height"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         app:itemIconSize="22dp"
