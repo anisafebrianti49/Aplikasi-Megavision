@@ -24,12 +24,16 @@ class PrivacyPolicyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Aksi tombol kembali (Back)
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        // In a real app, load privacy policy content from API or local assets
-        // The content is hardcoded in the XML for now
+        /* Catatan:
+           Teks konten Kebijakan Privasi dan Aturan Penggunaan cukup diletakkan
+           di dalam layout XML saja agar aplikasi lebih cepat dimuat dan
+           bisa dibaca meskipun tidak ada koneksi internet.
+        */
     }
 
     override fun onDestroyView() {

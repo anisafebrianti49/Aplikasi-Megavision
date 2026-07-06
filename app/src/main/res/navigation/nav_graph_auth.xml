@@ -4,72 +4,101 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_auth"
-    app:startDestination="@id/profileOptionFragment">
+    app:startDestination="@id/loginFragment">
 
-    <!-- ==================== HALAMAN 1: Pilihan Awal ==================== -->
-    <fragment
-        android:id="@+id/profileOptionFragment"
-        android:name="com.example.aplikasimegavision.ui.auth.ProfileOptionFragment"
-        android:label="ProfileOptionFragment"
-        tools:layout="@layout/fragment_profile_option">
-
-        <!-- Aksi: Pergi ke Login -->
-        <action
-            android:id="@+id/action_profileOptionFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <!-- Aksi: Pergi ke Daftar Akun -->
-        <action
-            android:id="@+id/action_profileOptionFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <!-- ==================== HALAMAN 2: Login ==================== -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.aplikasimegavision.ui.auth.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
 
-        <!-- Aksi: Pergi ke Daftar Akun (dari link di halaman login) -->
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/registerFragment" />
 
-        <!-- Aksi: Pergi ke Lupa Password -->
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/forgotPasswordFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
     </fragment>
 
-    <!-- ==================== HALAMAN 3: Daftar Akun ==================== -->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.aplikasimegavision.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register" />
 
-    <!-- ==================== HALAMAN 4: Lupa Password ==================== -->
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.aplikasimegavision.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_addPhoneFragment"
+            app:destination="@id/addPhoneFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_deleteAccountFragment"
+            app:destination="@id/deleteAccountFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/addPhoneFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.AddPhoneFragment"
+        android:label="Add Phone"
+        tools:layout="@layout/fragment_add_phone" />
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.DeleteAccountFragment"
+        android:label="Delete Account"
+        tools:layout="@layout/fragment_delete_account" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.aplikasimegavision.ui.profile.ChangePasswordFragment"
+        android:label="Change Password"
+        tools:layout="@layout/fragment_change_password" />
 
 </navigation>

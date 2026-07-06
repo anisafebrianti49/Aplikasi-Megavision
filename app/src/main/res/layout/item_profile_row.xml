@@ -7,27 +7,27 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:paddingVertical="16dp"
+    android:paddingVertical="14dp"
     android:paddingHorizontal="20dp">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginEnd="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_action_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="12dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tv_row_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Label"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textColor="@color/text_secondary"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="2dp" />
 
         <TextView
             android:id="@+id/tv_row_value"
@@ -35,19 +35,20 @@
             android:layout_height="wrap_content"
             android:text="Value"
             android:textSize="15sp"
-            android:textColor="@color/text_primary"
-            android:textStyle="normal" />
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_action_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/ic_chevron_right"
+        android:contentDescription="Aksi Row"
+        android:visibility="visible"
+        app:tint="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="Aksi Row"
-        android:visibility="gone" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

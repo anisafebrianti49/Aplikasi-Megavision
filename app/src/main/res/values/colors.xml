@@ -1,36 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="megavision_blue">#2F66D4</color>
+    <color name="white">#FFFFFF</color>
 
-    <resources>
+    <color name="bg_main">#F4F6F9</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <!-- Input stroke color -->
+    <color name="input_stroke_inactive">#FFCCCCCC</color>
 
-        <!-- ===== Warna Utama Megavision ===== -->
-        <color name="black">#FF000000</color>
-        <color name="white">#FFFFFFFF</color>
-        <color name="megavision_blue">#3D5BF5</color>
-        <!-- Varian gelap untuk ripple effect -->
-        <color name="megavision_blue_dark">#2D47D4</color>
-        <!-- Varian transparan 10% untuk ripple outlined button -->
-        <color name="megavision_blue_10">#1A3D5BF5</color>
-
-        <!-- ===== Background ===== -->
-        <!-- Off-white lembut untuk background utama -->
-        <color name="bg_main">#F8F9FA</color>
-
-        <!-- ===== Teks ===== -->
-        <!-- Hitam elegan untuk teks utama (judul, label) -->
-        <color name="text_primary">#1A1A2E</color>
-        <!-- Abu-abu untuk teks sekunder (deskripsi, subtitle) -->
-        <color name="text_secondary">#6C757D</color>
-        <!-- Abu-abu untuk hint text pada EditText -->
-        <color name="text_hint">#AAAAAA</color>
-
-        <!-- ===== Input Field ===== -->
-        <!-- Stroke aktif (saat EditText difokus) -->
-        <color name="input_stroke_active">#3D5BF5</color>
-        <!-- Stroke non-aktif (default) -->
-        <color name="input_stroke_inactive">#CCCCCC</color>
-
-        <!-- ===== Link / Aksi Sekunder ===== -->
-        <!-- Merah untuk link "disini" dan "Daftar Akun" (sesuai screenshot) -->
-        <color name="red_link">#E53935</color>
-
-    </resources>
+    <!-- Megavision Blue 10% opacity -->
+    <color name="megavision_blue_10">#1A1E88E5</color>
+</resources>

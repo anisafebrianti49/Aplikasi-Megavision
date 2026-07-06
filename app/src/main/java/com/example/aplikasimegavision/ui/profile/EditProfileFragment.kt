@@ -1,6 +1,7 @@
 package com.example.aplikasimegavision.ui.profile
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentEditProfileBinding
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +23,10 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val calendar = Calendar.getInstance()
+
+    // Tambahkan variabel untuk database dan ID user
+    private lateinit var database: DatabaseReference
+    private var userId: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +39,31 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Pengaman Inisialisasi Firebase
+        try {
+            FirebaseApp.initializeApp(requireContext())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // 1. Ambil ID User dari sesi Login (SharedPreferences)
+        val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+        userId = prefs.getString("USER_ID", "") ?: ""
+
+        if (userId.isEmpty()) {
+            Toast.makeText(requireContext(), "Sesi login tidak valid", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // 2. Hubungkan ke Firebase (Server Singapura)
+        database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .getReference("pelanggan").child(userId)
+
         setupToolbar()
         setupGenderDropdown()
         setupDatePicker()
+
+        // 3. Panggil data aslinya dari Firebase, bukan hardcode
         populateExistingData()
 
         binding.btnSimpanPerubahan.setOnClickListener {
@@ -68,7 +97,7 @@ class EditProfileFragment : Fragment() {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val sdf = SimpleDateFormat("dd MMM yyyy", Locale("id", "ID"))
+            val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
             binding.etTanggalLahir.setText(sdf.format(calendar.time))
         }
         DatePickerDialog(
@@ -81,9 +110,33 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun populateExistingData() {
-        // In real app, load from ViewModel
-        binding.etNamaLengkap.setText("Rubby Ferdiansyah")
-        binding.etTanggalLahir.setText("29 May 2026")
+        // Panggil data dari Firebase secara realtime
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!isAdded || _binding == null) return
+
+                if (snapshot.exists()) {
+                    val nama = snapshot.child("nama").value?.toString() ?: ""
+                    val tanggalLahir = snapshot.child("tanggal_lahir").value?.toString() ?: ""
+                    val jenisKelamin = snapshot.child("jenis_kelamin").value?.toString() ?: ""
+
+                    // Tampilkan ke kolom input
+                    binding.etNamaLengkap.setText(nama)
+                    binding.etTanggalLahir.setText(tanggalLahir)
+
+                    if (jenisKelamin.isNotEmpty()) {
+                        // 'false' ditambahkan agar dropdown tidak otomatis terbuka saat diset teksnya
+                        binding.actvJenisKelamin.setText(jenisKelamin, false)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                if (isAdded) {
+                    Toast.makeText(requireContext(), "Gagal memuat data lama", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     private fun saveChanges() {
@@ -97,9 +150,39 @@ class EditProfileFragment : Fragment() {
         }
         binding.tilNamaLengkap.error = null
 
-        // TODO: Call ViewModel to save via API
-        Toast.makeText(requireContext(), "Perubahan disimpan!", Toast.LENGTH_SHORT).show()
-        findNavController().navigateUp()
+        // Matikan tombol sementara saat menyimpan
+        binding.btnSimpanPerubahan.isEnabled = false
+        Toast.makeText(requireContext(), "Menyimpan perubahan...", Toast.LENGTH_SHORT).show()
+
+        // Siapkan map berisi data yang mau di-update
+        val updates = mapOf<String, Any>(
+            "nama" to nama,
+            "tanggal_lahir" to tanggalLahir,
+            "jenis_kelamin" to gender
+        )
+
+        // Kirim update ke Firebase
+        database.updateChildren(updates).addOnCompleteListener { task ->
+            if (!isAdded || _binding == null) return@addOnCompleteListener
+
+            // Nyalakan tombol lagi
+            binding.btnSimpanPerubahan.isEnabled = true
+
+            if (task.isSuccessful) {
+                // Update nama di SharedPreferences biar halaman profil ikut terupdate
+                requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("NAMA", nama)
+                    .apply()
+
+                Toast.makeText(requireContext(), "Perubahan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+
+                // Kembali ke halaman sebelumnya
+                findNavController().navigateUp()
+            } else {
+                Toast.makeText(requireContext(), "Gagal menyimpan data: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroyView() {

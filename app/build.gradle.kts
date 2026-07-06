@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    // Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -14,7 +17,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner =
+            "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -22,7 +26,9 @@ android {
             isMinifyEnabled = false
 
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile(
+                    "proguard-android-optimize.txt"
+                ),
                 "proguard-rules.pro"
             )
         }
@@ -44,19 +50,46 @@ android {
 
 dependencies {
 
+    // Android Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.firebase:firebase-database-ktx:21.0.0")
 
+    // Firebase BOM
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+
+    // Firebase Database
+    implementation("com.google.firebase:firebase-database-ktx")
+
+    // Firebase Auth
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Firebase Storage (TAMBAHAN BARU UNTUK FOTO PROFIL)
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    // Glide (TAMBAHAN BARU UNTUK LOAD FOTO PROFIL DARI STORAGE)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Navigation
     val navVersion = "2.7.7"
 
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation(
+        "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    )
 
+    implementation(
+        "androidx.navigation:navigation-ui-ktx:$navVersion"
+    )
+
+    // Testing
     testImplementation("junit:junit:4.13.2")
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation(
+        "androidx.test.ext:junit:1.1.5"
+    )
+
+    androidTestImplementation(
+        "androidx.test.espresso:espresso-core:3.5.1"
+    )
 }

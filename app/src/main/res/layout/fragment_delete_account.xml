@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- fragment_delete_account.xml -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_main">
+    android:background="@drawable/bg_gradient_blue">
 
-    <!-- Toolbar biru (sesuai screenshot) -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +22,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_arrow_back_white"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Kembali"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -56,28 +54,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Teks intro -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lengkapi form berikut untuk menghapus akun Anda di aplikasi My Megavision"
                 android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/white"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Card Danger Zone (pink tint) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFF5F5">
+                app:cardBackgroundColor="@color/white">
 
-                <!-- Garis merah kiri sebagai aksen "danger" -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <View
@@ -91,7 +85,6 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Label Nomor Telepon -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -107,12 +100,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Masukkan nomor telepon Anda"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxStrokeColor="#E53935"
-                            app:hintTextColor="#E53935"
                             app:boxBackgroundColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -120,11 +107,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="52dp"
                                 android:inputType="phone"
-                                android:textSize="14sp"
-                                android:textColor="@color/text_primary" />
+                                android:textSize="14sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <!-- Label Alasan -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -141,12 +126,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Masukkan alasan Anda"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxStrokeColor="#E53935"
-                            app:hintTextColor="#E53935"
                             app:boxBackgroundColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -155,22 +134,19 @@
                                 android:layout_height="120dp"
                                 android:inputType="textMultiLine"
                                 android:gravity="top|start"
-                                android:textSize="14sp"
-                                android:textColor="@color/text_primary" />
+                                android:textSize="14sp" />
                         </com.google.android.material.textfield.TextInputLayout>
-
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card Syarat & Ketentuan -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#EBF5FF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -178,72 +154,85 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Syarat &amp; Ketentuan"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_primary"
-                        android:layout_marginBottom="12dp" />
-
-                    <!-- Poin 1 -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:layout_marginBottom="8dp">
-                        <TextView android:layout_width="20dp" android:layout_height="wrap_content"
-                            android:text="1." android:textSize="14sp" android:textColor="@color/text_primary" />
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="Akun My Megavision akan dihapus"
-                            android:textSize="14sp" android:textColor="@color/text_primary"
-                            android:lineSpacingMultiplier="1.4"/>
-                    </LinearLayout>
-
-                    <!-- Poin 2 -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:layout_marginBottom="8dp">
-                        <TextView android:layout_width="20dp" android:layout_height="wrap_content"
-                            android:text="2." android:textSize="14sp" android:textColor="@color/text_primary" />
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+                        <TextView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="1."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Setelah akun Anda dihapus, layanan Megavision Anda tetap aktif"
-                            android:textSize="14sp" android:textColor="@color/text_primary"
-                            android:lineSpacingMultiplier="1.4"/>
+                            android:text="Akun My Megavision akan dihapus secara permanen."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:lineSpacingMultiplier="1.2"/>
                     </LinearLayout>
 
-                    <!-- Poin 3 -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+                        <TextView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="2."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Setelah akun Anda dihapus, layanan internet/TV Megavision fisik Anda di rumah tetap aktif berjalan normal."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:lineSpacingMultiplier="1.2"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <TextView android:layout_width="20dp" android:layout_height="wrap_content"
-                            android:text="3." android:textSize="14sp" android:textColor="@color/text_primary" />
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="3."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Anda dapat login kembali dengan melakukan daftar ulang"
-                            android:textSize="14sp" android:textColor="@color/text_primary"
-                            android:lineSpacingMultiplier="1.4"/>
+                            android:text="Anda dapat menggunakan aplikasi kembali di kemudian hari dengan melakukan daftar ulang."
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"
+                            android:lineSpacingMultiplier="1.2"/>
                     </LinearLayout>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Tombol Hapus Akun -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_hapus_akun"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Hapus Akun"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 android:textColor="#E53935"
-                android:enabled="false"
-                android:alpha="0.5"
                 app:strokeColor="#E53935"
-                app:strokeWidth="1.5dp"
                 app:cornerRadius="16dp"
-                app:backgroundTint="@android:color/transparent"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="24dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
