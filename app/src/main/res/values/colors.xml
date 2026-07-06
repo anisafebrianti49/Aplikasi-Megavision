@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="megavision_blue">#2F66D4</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="bg_main">#F4F6F9</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <!-- Input stroke color -->
+    <color name="input_stroke_inactive">#FFCCCCCC</color>
+
+    <!-- Megavision Blue 10% opacity -->
+    <color name="megavision_blue_10">#1A1E88E5</color>
 </resources>
