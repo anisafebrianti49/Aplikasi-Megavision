@@ -29,9 +29,8 @@
             android:exported="false" />
 
         <activity
-            android:name=".FiturDheniaActivity"
+            android:name=".HalamanPengaduan_CS"
             android:exported="false" />
-
     </application>
 
 </manifest>

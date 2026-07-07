@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true">
 
     <ScrollView
+        android:id="@+id/home_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
@@ -39,9 +40,10 @@
                     android:id="@+id/layout_user_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="8dp" android:letterSpacing="0.02"
+                    android:layout_marginEnd="20dp"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal"
+                    android:gravity="start"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_ganti_akun"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -82,9 +84,9 @@
 
                 <Button
                     android:id="@+id/btn_ganti_akun"
-                    android:layout_width="95dp"
-                    android:layout_height="39dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/bg_rounded_light_blue"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
@@ -207,21 +209,27 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:id="@+id/menu_metode_pembayaran" android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_metode_pembayaran"
                             android:layout_width="@dimen/menu_icon_box"
                             android:layout_height="@dimen/menu_icon_box"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -230,7 +238,9 @@
                                 android:textStyle="bold"
                                 android:textColor="#2F66D4"
                                 android:textSize="16sp" />
+
                         </androidx.cardview.widget.CardView>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,14 +259,20 @@
                         android:orientation="vertical"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_cs_pengaduan"
                             android:layout_width="@dimen/menu_icon_box"
                             android:layout_height="@dimen/menu_icon_box"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
+
                             <ImageView
                                 android:layout_width="@dimen/menu_icon_size"
                                 android:layout_height="@dimen/menu_icon_size"
@@ -264,7 +280,9 @@
                                 android:src="@android:drawable/stat_sys_phone_call"
                                 app:tint="#2F66D4"
                                 android:contentDescription="Layanan Pengaduan" />
+
                         </androidx.cardview.widget.CardView>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -286,14 +304,20 @@
                         android:orientation="vertical"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_upgrade_paket"
                             android:layout_width="@dimen/menu_icon_box"
                             android:layout_height="@dimen/menu_icon_box"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
                             app:cardBackgroundColor="#FFFFFF"
                             app:strokeColor="#E2E8F0"
                             app:strokeWidth="1dp">
+
                             <ImageView
                                 android:layout_width="@dimen/menu_icon_size"
                                 android:layout_height="@dimen/menu_icon_size"
@@ -301,7 +325,9 @@
                                 android:src="@android:drawable/checkbox_on_background"
                                 app:tint="#2F66D4"
                                 android:contentDescription="Upgrade Paket" />
+
                         </androidx.cardview.widget.CardView>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -688,6 +714,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- Kontainer untuk fragment yang dibuka dari Bottom Navigation
+         (Tagihan, Inbox, dll). Disembunyikan (GONE) saat Beranda aktif. -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:background="@android:color/transparent"
+        android:visibility="gone" />
+
     <!-- Floating CS Button -->
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_cs_floating"
@@ -712,12 +748,7 @@
             android:layout_gravity="center" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Navigation: wrap_content + minHeight, BUKAN tinggi fixed.
-         Ini kunci universal fix -> di HP manapun (Xiaomi, Samsung, Oppo,
-         Pixel, dst) dan di kondisi apapun (gesture nav, 3-button nav,
-         font besar/aksesibilitas), tinggi nav bar akan MENYESUAIKAN
-         kontennya sendiri, bukan dipaksa masuk ke angka tetap yang
-         bisa bikin ikon+label numpuk/gepeng. -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
