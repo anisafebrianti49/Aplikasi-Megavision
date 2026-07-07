@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
 }
 
@@ -32,19 +31,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-
-
     buildFeatures {
         viewBinding = true
     }
 }
 
 kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
-    }
+    jvmToolchain(11)
 }
-
 
 dependencies {
     // Android Core
@@ -63,9 +57,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Navigation
-    val navVersion = "2.7.7"
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
