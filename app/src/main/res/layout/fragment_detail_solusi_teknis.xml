@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText,Contrast,VisualLintButtonSize">
+
+    <!-- Header Bantuan & Tombol Back -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/btn_back_detail"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerInside"
+            android:contentDescription="Kembali"
+            app:tint="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Bantuan"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Menggunakan ScrollView agar seluruh komponen rapat ke atas mengikuti konten -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pertanyaan :"
+                android:textColor="#E0E0E0"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_detail_pertanyaan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bagaimana Cara Cek ID Pelanggan Megavision?"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <!-- Garis pembatas tipis transparan -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#40FFFFFF"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Membungkus Solusi dengan CardView Putih -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Solusi"
+                        android:textColor="#1A60D1"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_solusi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Untuk mengecek ID Pelanggan Megavision, Anda dapat melihatnya langsung pada lembar tagihan bulanan, struk pembayaran sebelumnya, atau melalui menu profil utama di aplikasi Megavision Anda."
+                        android:textColor="#333333"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingMultiplier="1.3" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- POSISI BARU: Teks & Tombol dipindahkan ke sini (Tepat di bawah CardView) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Apakah saran ini menyelesaikan masalah Anda?"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_solusi_terpecahkan"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Ya, masalah terpecahkan"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1A60D1"
+                android:textAllCaps="false"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

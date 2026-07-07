@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1. Gunakan background gradasi dan aktifkan fitsSystemWindows agar aman dari status bar -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient_blue"
+    android:fitsSystemWindows="true">
+
+    <!-- 2. Header dibuat TRANSPARAN agar warna gradasi mengalir mulus -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_revert"
+            android:rotation="180"
+            app:tint="@android:color/white"
+            android:contentDescription="Kembali" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Detail"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 3. Bubble chat tetap dipertahankan warna aslinya agar teks gelap
+                 di dalamnya tetap kontras, tajam, dan mudah dibaca -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chat_bubble"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginEnd="40dp">
+
+                <TextView
+                    android:id="@+id/tvDetailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pemberitahuan Pemblokiran"
+                    android:textColor="#222222"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDetailDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15 Nov 2024"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvDetailDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Isi pesan di sini..."
+                    android:textColor="#444444"
+                    android:textSize="14sp"
+                    android:lineSpacingMultiplier="1.2" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

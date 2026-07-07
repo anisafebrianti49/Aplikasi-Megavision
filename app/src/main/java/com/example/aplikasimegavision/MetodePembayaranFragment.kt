@@ -1,0 +1,39 @@
+package com.example.aplikasimegavision
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+
+class MetodePembayaranFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_metode_pembayaran, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val webView = view.findViewById<WebView>(R.id.webViewMetode)
+        val btnBack = view.findViewById<ImageView>(R.id.btnBackTagihan)
+
+        // Pengaturan WebView
+        webView.settings.javaScriptEnabled = true
+        webView.webViewClient = WebViewClient() // Supaya web dibuka di dalam aplikasi saja
+
+        // Memasukkan URL Megavision
+        webView.loadUrl("https://megavision.net.id/blog/metode-pembayaran-tagihan-megavision")
+
+        // Aksi Back
+        btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+    }
+}
