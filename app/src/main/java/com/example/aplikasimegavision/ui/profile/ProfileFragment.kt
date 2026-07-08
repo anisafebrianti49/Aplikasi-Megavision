@@ -3,6 +3,7 @@ package com.example.aplikasimegavision.ui.profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.aplikasimegavision.MainActivity_dashboard
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentProfileBinding
 import com.google.firebase.FirebaseApp
@@ -110,8 +112,35 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnKeluar.setOnClickListener {
-            val logoutBottomSheet = LogoutBottomSheetFragment()
-            logoutBottomSheet.show(parentFragmentManager, "LogoutBottomSheetTag")
+            requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply()
+
+            // Balik ke MainActivity_dashboard atau tutup activity ini
+            requireActivity().finish()
+        }
+
+        // ==========================================
+        // BOTTOM NAVIGATION DI HALAMAN PROFIL
+        // ==========================================
+        binding.bottomNavigation.selectedItemId = R.id.nav_profil // set state aktif
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_profil -> true // sudah di sini
+                else -> {
+                    // Tutup activity ini, balik ke MainActivity_dashboard,
+                    // lalu minta dashboard pindah ke tab yang dipilih
+                    val intent = Intent(requireContext(), MainActivity_dashboard::class.java).apply {
+                        putExtra("SELECTED_NAV_ITEM", item.itemId)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    }
+                    startActivity(intent)
+                    requireActivity().finish()
+                    true
+                }
+            }
         }
 
         // ==========================================

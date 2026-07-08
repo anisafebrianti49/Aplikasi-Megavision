@@ -12,6 +12,9 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.aplikasimegavision.UI.upgradepaket.UpgradePaketFragment
+
+
 
 class MainActivity_dashboard : AppCompatActivity() {
 
@@ -51,8 +54,8 @@ class MainActivity_dashboard : AppCompatActivity() {
             insets
         }
 
-        btnGantiAkun.setOnClickListener {
-            Toast.makeText(this, "Membuka Panel Ganti Akun", Toast.LENGTH_SHORT).show()
+        btnUpgradePaket.setOnClickListener {
+            showFragment(UpgradePaketFragment())
         }
 
         btnCsFloating.setOnClickListener {
@@ -70,7 +73,7 @@ class MainActivity_dashboard : AppCompatActivity() {
         }
 
         btnUpgradePaket.setOnClickListener {
-            showFragment(UpgradePaketFragment())
+            showFragment(FaqUpgradeKecepatanFragment())
         }
 
         bottomNavigation.setOnItemSelectedListener { item ->
@@ -88,18 +91,12 @@ class MainActivity_dashboard : AppCompatActivity() {
                     true
                 }
                 R.id.nav_voucher -> {
-                    // TODO: ganti Toast ini kalau halaman Voucher sudah dibuat
-                    Toast.makeText(this, "Fitur Voucher segera hadir!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, VoucherActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_profil -> {
-                    // Buka ProfileAuthActivity secara normal -> mulai dari
-                    // LoginFragment (sesuai start destination di nav_graph_auth).
-                    // User harus login dulu sebelum bisa masuk ke ProfileFragment.
-                    val intent = Intent(this, ProfileAuthActivity::class.java)
-                    startActivity(intent)
-                    // Tetap tampilkan Beranda di belakang layar dashboard
-                    showHome()
+                    showAuthNavHost()
                     true
                 }
                 else -> false
@@ -112,6 +109,12 @@ class MainActivity_dashboard : AppCompatActivity() {
             } else {
                 isEnabled = false
                 onBackPressedDispatcher.onBackPressed()
+            }
+        }
+
+        intent.getIntExtra("SELECTED_NAV_ITEM", R.id.nav_beranda).let { itemId ->
+            if (itemId != R.id.nav_beranda) {
+                bottomNavigation.selectedItemId = itemId
             }
         }
     }
@@ -132,6 +135,17 @@ class MainActivity_dashboard : AppCompatActivity() {
         fragmentContainer.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+    private fun showAuthNavHost() {
+        homeContent.visibility = View.GONE
+        fragmentContainer.visibility = View.VISIBLE
+
+        val navHostFragment = androidx.navigation.fragment.NavHostFragment.create(R.navigation.nav_graph_auth)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, navHostFragment)
+            .setPrimaryNavigationFragment(navHostFragment)
             .commit()
     }
 }

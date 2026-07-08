@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat // TAMPILAN TANGGAL
 import java.util.Date
 import java.util.Locale
+import android.widget.ImageView
 
 class VoucherCatalogFragment : Fragment() {
 
@@ -33,6 +34,11 @@ class VoucherCatalogFragment : Fragment() {
 
         rvKatalogVoucher = view.findViewById(R.id.rvKatalogVoucher)
         tvSaldoPoin = view.findViewById(R.id.tvSaldoPoin)
+
+        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            requireActivity().finish()
+        }
 
         updateTampilanSaldo()
 

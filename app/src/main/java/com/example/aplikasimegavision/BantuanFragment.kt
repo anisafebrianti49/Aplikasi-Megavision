@@ -84,7 +84,7 @@ class BantuanFragment : Fragment() {
         // Aksi klik untuk kartu Upgrade Paket
         cardUpgradePaket?.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, UpgradePaketFragment())
+                .replace(R.id.fragment_container, FaqUpgradeKecepatanFragment())
                 .addToBackStack(null)
                 .commit()
         }

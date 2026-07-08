@@ -31,7 +31,7 @@ enum class HalamanApp {
     PENGADUAN_GANGGUAN
 }
 
-class MainActivity : ComponentActivity() {
+class MainActivity_Voucher : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

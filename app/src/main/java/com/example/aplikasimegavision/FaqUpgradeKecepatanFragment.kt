@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 
-class UpgradePaketFragment : Fragment() {
+class FaqUpgradeKecepatanFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

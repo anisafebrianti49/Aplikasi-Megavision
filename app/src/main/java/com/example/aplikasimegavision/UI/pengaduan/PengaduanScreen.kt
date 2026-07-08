@@ -48,14 +48,12 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
     var daftarPesan by remember { mutableStateOf(listOf<PesanChat>()) }
     val listState = rememberLazyListState()
 
-    // SOLUSI UNGU: Mengubah warna status bar HP menjadi putih semenjak layar ini dibuka
     val context = LocalContext.current
     SideEffect {
         val window = (context as? Activity)?.window
         window?.statusBarColor = Color.White.toArgb()
     }
 
-    // URL Realtime Database Singapore sudah terpasang dengan benar
     val database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app/")
     val chatRef = database.getReference("live_chat_pengaduan/sesi_demo_user")
 
@@ -152,9 +150,6 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
                         coroutineScope.launch {
                             delay(1500)
 
-                            // =========================================================
-                            // OTAK BOT BARU YANG LEBIH PINTAR DAN NATURAL ADA DI SINI
-                            // =========================================================
                             val balasanAdmin = if (
                                 pesanTerkirim.contains("halo", true) ||
                                 pesanTerkirim.contains("helo", true) ||
@@ -181,7 +176,6 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
                             } else {
                                 "Laporan Anda sudah kami catat nih. Ada informasi tambahan lain yang ingin disampaikan sebelum diteruskan ke agen spesialis kami?"
                             }
-                            // =========================================================
 
                             val pesanBot = PesanChat(balasanAdmin, false, System.currentTimeMillis())
                             chatRef.push().setValue(pesanBot)

@@ -17,7 +17,6 @@ class ChangePasswordFragment : Fragment() {
     private var _binding: FragmentChangePasswordBinding? = null
     private val binding get() = _binding!!
 
-    // Inisialisasi Database
     private lateinit var database: DatabaseReference
 
     override fun onCreateView(
@@ -29,20 +28,15 @@ class ChangePasswordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // FIX: Tanda tanya (?) setelah savedInstanceState dihapus agar tidak eror compiler
         super.onViewCreated(view, savedInstanceState)
 
-        // Arahkan ke tabel "pelanggan"
         database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan")
 
-        // Tombol Kembali
         binding.btnBack.setOnClickListener {
-            // FIX: Diubah menggunakan findNavController agar selaras dengan Navigation Component
             findNavController().popBackStack()
         }
 
-        // Tombol Simpan
         binding.btnSimpanPassword.setOnClickListener {
             prosesUbahPassword()
         }
@@ -53,7 +47,6 @@ class ChangePasswordFragment : Fragment() {
         val passwordBaru = binding.etPasswordBaru.text.toString().trim()
         val konfirmasiPassword = binding.etKonfirmasiPassword.text.toString().trim()
 
-        // 1. Validasi Input tidak boleh kosong
         if (passwordLama.isEmpty()) {
             binding.tilPasswordLama.error = "Masukkan password lama"
             return
@@ -69,16 +62,13 @@ class ChangePasswordFragment : Fragment() {
             return
         }
 
-        // 2. Validasi Password Baru harus sama dengan Konfirmasi
         if (passwordBaru != konfirmasiPassword) {
             binding.tilKonfirmasiPassword.error = "Password baru tidak cocok"
             return
         }
 
-        // Hapus error jika aman
         binding.tilKonfirmasiPassword.isErrorEnabled = false
 
-        // FIX: Mengambil ID User secara dinamis dari SharedPreferences, mirip dengan ProfileFragment
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         val userIdLogin = prefs.getString("USER_ID", "") ?: ""
 
@@ -87,17 +77,15 @@ class ChangePasswordFragment : Fragment() {
             return
         }
 
-        // 3. Cek password lama ke Firebase sebelum diubah
         database.child(userIdLogin).get().addOnSuccessListener { snapshot ->
             if (snapshot.exists()) {
                 val passwordDiDatabase = snapshot.child("password").value.toString()
 
                 if (passwordLama == passwordDiDatabase) {
-                    // Jika password lama benar, simpan password baru!
                     database.child(userIdLogin).child("password").setValue(passwordBaru)
                         .addOnSuccessListener {
                             Toast.makeText(requireContext(), "Password berhasil diubah!", Toast.LENGTH_SHORT).show()
-                            // Kembali ke halaman Profil menggunakan NavController
+
                             findNavController().popBackStack()
                         }
                         .addOnFailureListener {
