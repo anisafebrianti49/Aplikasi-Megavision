@@ -24,7 +24,6 @@ class EditProfileFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
 
-    // Tambahkan variabel untuk database dan ID user
     private lateinit var database: DatabaseReference
     private var userId: String = ""
 
@@ -39,14 +38,12 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Pengaman Inisialisasi Firebase
         try {
             FirebaseApp.initializeApp(requireContext())
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        // 1. Ambil ID User dari sesi Login (SharedPreferences)
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
 
@@ -55,7 +52,6 @@ class EditProfileFragment : Fragment() {
             return
         }
 
-        // 2. Hubungkan ke Firebase (Server Singapura)
         database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan").child(userId)
 
@@ -63,7 +59,6 @@ class EditProfileFragment : Fragment() {
         setupGenderDropdown()
         setupDatePicker()
 
-        // 3. Panggil data aslinya dari Firebase, bukan hardcode
         populateExistingData()
 
         binding.btnSimpanPerubahan.setOnClickListener {
@@ -110,7 +105,6 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun populateExistingData() {
-        // Panggil data dari Firebase secara realtime
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!isAdded || _binding == null) return
@@ -120,12 +114,10 @@ class EditProfileFragment : Fragment() {
                     val tanggalLahir = snapshot.child("tanggal_lahir").value?.toString() ?: ""
                     val jenisKelamin = snapshot.child("jenis_kelamin").value?.toString() ?: ""
 
-                    // Tampilkan ke kolom input
                     binding.etNamaLengkap.setText(nama)
                     binding.etTanggalLahir.setText(tanggalLahir)
 
                     if (jenisKelamin.isNotEmpty()) {
-                        // 'false' ditambahkan agar dropdown tidak otomatis terbuka saat diset teksnya
                         binding.actvJenisKelamin.setText(jenisKelamin, false)
                     }
                 }
@@ -150,26 +142,21 @@ class EditProfileFragment : Fragment() {
         }
         binding.tilNamaLengkap.error = null
 
-        // Matikan tombol sementara saat menyimpan
         binding.btnSimpanPerubahan.isEnabled = false
         Toast.makeText(requireContext(), "Menyimpan perubahan...", Toast.LENGTH_SHORT).show()
 
-        // Siapkan map berisi data yang mau di-update
         val updates = mapOf<String, Any>(
             "nama" to nama,
             "tanggal_lahir" to tanggalLahir,
             "jenis_kelamin" to gender
         )
 
-        // Kirim update ke Firebase
         database.updateChildren(updates).addOnCompleteListener { task ->
             if (!isAdded || _binding == null) return@addOnCompleteListener
 
-            // Nyalakan tombol lagi
             binding.btnSimpanPerubahan.isEnabled = true
 
             if (task.isSuccessful) {
-                // Update nama di SharedPreferences biar halaman profil ikut terupdate
                 requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
                     .edit()
                     .putString("NAMA", nama)
@@ -177,7 +164,6 @@ class EditProfileFragment : Fragment() {
 
                 Toast.makeText(requireContext(), "Perubahan berhasil disimpan!", Toast.LENGTH_SHORT).show()
 
-                // Kembali ke halaman sebelumnya
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(requireContext(), "Gagal menyimpan data: ${task.exception?.message}", Toast.LENGTH_LONG).show()

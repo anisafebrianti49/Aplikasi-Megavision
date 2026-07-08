@@ -24,16 +24,10 @@ class PrivacyPolicyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Aksi tombol kembali (Back)
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        /* Catatan:
-           Teks konten Kebijakan Privasi dan Aturan Penggunaan cukup diletakkan
-           di dalam layout XML saja agar aplikasi lebih cepat dimuat dan
-           bisa dibaca meskipun tidak ada koneksi internet.
-        */
     }
 
     override fun onDestroyView() {

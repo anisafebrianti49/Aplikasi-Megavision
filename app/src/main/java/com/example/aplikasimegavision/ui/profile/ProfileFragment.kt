@@ -47,7 +47,6 @@ class ProfileFragment : Fragment() {
         try {
             binding.rowTanggalLahir.tvRowLabel.text = "Tanggal Lahir"
 
-            // KODE PERBAIKAN: Menggunakan ID yang benar dari XML kamu
             binding.rowTanggalLahir.ivActionIcon.visibility = android.view.View.GONE
 
         } catch (e: Exception) {
@@ -62,21 +61,16 @@ class ProfileFragment : Fragment() {
             return
         }
 
-        // 1. TAMPILKAN FOTO PROFIL AWAL DARI SHAREDPREFERENCES LOKAL
         loadLocalProfileImage(userId)
-
-        // 2. DAFTARKAN LISTENER (PENERIMA SINYAL) JIKA AVATAR DIUBAH DI BOTTOM SHEET
         parentFragmentManager.setFragmentResultListener("avatar_changed_request", viewLifecycleOwner) { _, _ ->
-            loadLocalProfileImage(userId) // Gambar langsung di-refresh otomatis pas bottom sheet ditutup!
+            loadLocalProfileImage(userId)
         }
 
-        // 3. AKSI KLIK FOTO PROFIL -> MUNCULKAN BOTTOM SHEET GRID 10 AVATAR
         binding.ivProfile.setOnClickListener {
             val avatarBottomSheet = ChooseAvatarBottomSheetFragment()
             avatarBottomSheet.show(parentFragmentManager, "ChooseAvatarBottomSheetTag")
         }
 
-        // --- Aksi klik navigasi lainnya tetap sama ---
         binding.tvUbahData.setOnClickListener {
             safeNavigate(R.id.action_profileFragment_to_editProfileFragment, "Edit Profile")
         }
@@ -117,21 +111,15 @@ class ProfileFragment : Fragment() {
                 .clear()
                 .apply()
 
-            // Balik ke MainActivity_dashboard atau tutup activity ini
             requireActivity().finish()
         }
 
-        // ==========================================
-        // BOTTOM NAVIGATION DI HALAMAN PROFIL
-        // ==========================================
         binding.bottomNavigation.selectedItemId = R.id.nav_profil // set state aktif
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_profil -> true // sudah di sini
                 else -> {
-                    // Tutup activity ini, balik ke MainActivity_dashboard,
-                    // lalu minta dashboard pindah ke tab yang dipilih
                     val intent = Intent(requireContext(), MainActivity_dashboard::class.java).apply {
                         putExtra("SELECTED_NAV_ITEM", item.itemId)
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -143,9 +131,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // ==========================================
-        // PROSES PEMBACAAN DATA TEKS DARI DATABASE
-        // ==========================================
         val databaseRef = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan").child(userId)
 
@@ -194,9 +179,6 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    // ==========================================
-    // SEKARANG SE-MANTAP INI FUNGSI LOAD FOTO LOKALNYA (MENDUKUNG 10 AVATAR)
-    // ==========================================
     private fun loadLocalProfileImage(userId: String) {
         if (_binding == null) return
 

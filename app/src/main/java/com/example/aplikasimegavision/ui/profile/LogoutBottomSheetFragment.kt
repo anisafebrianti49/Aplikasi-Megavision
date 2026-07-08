@@ -17,7 +17,6 @@ class LogoutBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentLogoutBottomSheetBinding? = null
     private val binding get() = _binding!!
 
-    // Callback listener agar ProfileFragment bisa bereaksi setelah logout dikonfirmasi
     var onLogoutConfirmed: (() -> Unit)? = null
 
     companion object {
@@ -35,7 +34,6 @@ class LogoutBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Langsung tarik Nama User dari SharedPreferences biar dinamis
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         val namaUser = prefs.getString("NAMA", "Pengguna") ?: "Pengguna"
 
@@ -50,19 +48,12 @@ class LogoutBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.btnKonfirmasiKeluar.setOnClickListener {
-            // Panggil callback kalau-kalau ProfileFragment butuh bereaksi
             onLogoutConfirmed?.invoke()
 
-            // 2. Bersihkan sesi login dari ingatan HP
             prefs.edit().clear().apply()
             Toast.makeText(requireContext(), "Berhasil logout", Toast.LENGTH_SHORT).show()
 
-            // 3. Arahkan user kembali ke halaman Login/Awal
             try {
-                // Sesuaikan R.id.action_... dengan ID panah di nav_graph kamu (jika ada)
-                // findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-
-                // Fallback super aman: Restart activity ke halaman awal
                 val intent = requireActivity().intent
                 requireActivity().finish()
                 startActivity(intent)

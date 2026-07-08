@@ -13,12 +13,10 @@ class AdministrasiTagihanFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_administrasi_tagihan, container, false)
 
-        // Tombol Back
         view.findViewById<ImageView>(R.id.btnBackAdministrasi).setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        // Klik ke Detail Solusi
         view.findViewById<CardView>(R.id.itemPertanyaan1).setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, DetailSolusiFragment())

@@ -28,7 +28,6 @@ class ChooseAvatarBottomSheetFragment : BottomSheetDialogFragment() {
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", "") ?: ""
 
-        // Map untuk mempermudah klik pada masing-masing ImageView ke string nama avatarnya
         val avatarMap = mapOf(
             binding.ivAvatar1 to "avatar_1",
             binding.ivAvatar2 to "avatar_2",
@@ -42,14 +41,12 @@ class ChooseAvatarBottomSheetFragment : BottomSheetDialogFragment() {
             binding.ivAvatar10 to "avatar_10"
         )
 
-        // Berikan aksi klik otomatis ke semua avatar
         avatarMap.forEach { (imageView, avatarString) ->
             imageView.setOnClickListener {
                 saveAvatarSelection(userId, avatarString)
             }
         }
 
-        // Aksi klik untuk tombol reset default
         binding.btnResetAvatar.setOnClickListener {
             saveAvatarSelection(userId, "default")
         }
@@ -59,7 +56,6 @@ class ChooseAvatarBottomSheetFragment : BottomSheetDialogFragment() {
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         prefs.edit().putString("SAVED_AVATAR_$userId", avatarName).apply()
 
-        // KIRIM SINYAL KE PROFILEFRAGMENT BAHWA FOTO TELAH BERUBAH
         parentFragmentManager.setFragmentResult("avatar_changed_request", Bundle())
 
         Toast.makeText(requireContext(), "Foto profil diperbarui!", Toast.LENGTH_SHORT).show()
