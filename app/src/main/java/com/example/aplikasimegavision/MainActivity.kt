@@ -1,5 +1,6 @@
 package com.example.aplikasimegavision
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,7 +25,6 @@ import com.example.aplikasimegavision.UI.upgradepaket.UpgradePaketScreen
 import com.example.aplikasimegavision.UI.upgradepaket.MegavisionBlue
 import androidx.compose.foundation.shape.RoundedCornerShape
 
-// Enum untuk mengontrol navigasi halaman utama kelompok
 enum class HalamanApp {
     MENU_UTAMA,
     UPGRADE_PAKET,
@@ -42,20 +43,17 @@ class MainActivity : ComponentActivity() {
             ) {
                 when (halamanSekarang) {
                     HalamanApp.MENU_UTAMA -> {
-                        // Ini adalah simulasi Menu Utama/Dashboard aplikasi kelompokmu
                         MenuUtamaSimulasi(
                             onMajuKeUpgrade = { halamanSekarang = HalamanApp.UPGRADE_PAKET },
                             onMajuKePengaduan = { halamanSekarang = HalamanApp.PENGADUAN_GANGGUAN }
                         )
                     }
                     HalamanApp.UPGRADE_PAKET -> {
-                        // Memanggil file UpgradePaketScreen yang sudah kamu buat
                         UpgradePaketScreen(
                             onBackClicked = { halamanSekarang = HalamanApp.MENU_UTAMA }
                         )
                     }
                     HalamanApp.PENGADUAN_GANGGUAN -> {
-                        // Memanggil file PengaduanScreen yang sudah kamu buat
                         PengaduanScreen(
                             onBackClicked = { halamanSekarang = HalamanApp.MENU_UTAMA }
                         )
@@ -68,9 +66,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MenuUtamaSimulasi(onMajuKeUpgrade: () -> Unit, onMajuKePengaduan: () -> Unit) {
-    // Siapkan interaction source untuk mendeteksi klik secara independen
     val interactionSourceUpgrade = remember { MutableInteractionSource() }
     val interactionSourcePengaduan = remember { MutableInteractionSource() }
+    val interactionSourceVoucher = remember { MutableInteractionSource() }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -92,14 +92,13 @@ fun MenuUtamaSimulasi(onMajuKeUpgrade: () -> Unit, onMajuKePengaduan: () -> Unit
             modifier = Modifier.padding(top = 4.dp, bottom = 32.dp)
         )
 
-        // Tombol Menuju Fitur Upgrade Paket milikmu
         Button(
             onClick = onMajuKeUpgrade,
-            interactionSource = interactionSourceUpgrade, // Sambungkan ke sumber interaksi
+            interactionSource = interactionSourceUpgrade,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .bounceScale(interactionSourceUpgrade), // <--- Animasi membal
+                .bounceScale(interactionSourceUpgrade),
             colors = ButtonDefaults.buttonColors(containerColor = MegavisionBlue),
             shape = RoundedCornerShape(8.dp)
         ) {
@@ -108,25 +107,39 @@ fun MenuUtamaSimulasi(onMajuKeUpgrade: () -> Unit, onMajuKePengaduan: () -> Unit
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Tombol Menuju Fitur Pengaduan milikmu
         Button(
             onClick = onMajuKePengaduan,
-            interactionSource = interactionSourcePengaduan, // Sambungkan ke sumber interaksi
+            interactionSource = interactionSourcePengaduan,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .bounceScale(interactionSourcePengaduan), // <--- Animasi membal
+                .bounceScale(interactionSourcePengaduan),
             colors = ButtonDefaults.buttonColors(containerColor = MegavisionBlue),
             shape = RoundedCornerShape(8.dp)
         ) {
             Text("Buka Fitur Pengaduan Gangguan", fontSize = 14.sp)
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                val intent = Intent(context, VoucherActivity::class.java)
+                context.startActivity(intent)
+            },
+            interactionSource = interactionSourceVoucher,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .bounceScale(interactionSourceVoucher),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFB300)),
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            Text("Buka Fitur Voucher Poin", fontSize = 14.sp, color = Color.White)
+        }
     }
 }
 
-// =================================================================
-// MODIFIER KUSTOM: ANIMASI MEMBAL (BOUNCE) UNTUK MAIN ACTIVITY
-// =================================================================
 fun Modifier.bounceScale(interactionSource: MutableInteractionSource) = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(

@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplikasiMegavision">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -20,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- TAMBAHAN: Mendaftarkan VoucherActivity agar tidak force close saat tombol diklik -->
+        <activity android:name=".VoucherActivity" />
+
     </application>
 
 </manifest>

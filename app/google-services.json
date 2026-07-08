@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "269384478702",
+    "firebase_url": "https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "myapp-megavision",
     "storage_bucket": "myapp-megavision.firebasestorage.app"
   },
