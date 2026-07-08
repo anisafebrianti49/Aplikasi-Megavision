@@ -1,5 +1,6 @@
 package com.example.aplikasimegavision.UI.pengaduan
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,7 +48,15 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
     var daftarPesan by remember { mutableStateOf(listOf<PesanChat>()) }
     val listState = rememberLazyListState()
 
-    val database = FirebaseDatabase.getInstance()
+    // SOLUSI UNGU: Mengubah warna status bar HP menjadi putih semenjak layar ini dibuka
+    val context = LocalContext.current
+    SideEffect {
+        val window = (context as? Activity)?.window
+        window?.statusBarColor = Color.White.toArgb()
+    }
+
+    // URL Realtime Database Singapore sudah terpasang dengan benar
+    val database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app/")
     val chatRef = database.getReference("live_chat_pengaduan/sesi_demo_user")
 
     LaunchedEffect(Unit) {
@@ -121,9 +132,6 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
                     .padding(horizontal = 16.dp),
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
-                // PESAN STATIS SUDAH DIHAPUS DARI SINI
-                // Layar akan murni kosong sampai ada data dari Firebase
-
                 items(daftarPesan) { pesan ->
                     ChatBubble(pesan = pesan, showAvatar = !pesan.dariUser)
                     Spacer(modifier = Modifier.height(8.dp))
@@ -144,16 +152,36 @@ fun PengaduanScreen(onBackClicked: () -> Unit) {
                         coroutineScope.launch {
                             delay(1500)
 
-                            // LOGIKA BOT DIPERBARUI: Termasuk membalas sapaan
-                            val balasanAdmin = if (pesanTerkirim.contains("halo", true) || pesanTerkirim.contains("min", true) || pesanTerkirim.contains("pagi", true) || pesanTerkirim.contains("siang", true)) {
-                                "Halo! Ada yang bisa kami bantu terkait layanan Megavision Anda hari ini?"
-                            } else if (pesanTerkirim.contains("mati", true) || pesanTerkirim.contains("los", true)) {
-                                "Mohon maaf atas ketidaknyamanannya. Boleh informasikan Nomor Pelanggan Anda agar kami bantu pengecekan jaringan?"
+                            // =========================================================
+                            // OTAK BOT BARU YANG LEBIH PINTAR DAN NATURAL ADA DI SINI
+                            // =========================================================
+                            val balasanAdmin = if (
+                                pesanTerkirim.contains("halo", true) ||
+                                pesanTerkirim.contains("helo", true) ||
+                                pesanTerkirim.contains("min", true) ||
+                                pesanTerkirim.contains("p ", true) ||
+                                pesanTerkirim.equals("p", true) ||
+                                pesanTerkirim.contains("tes", true)
+                            ) {
+                                "Halo! Selamat datang di layanan Live Chat Megavision. Ada yang bisa admin bantu hari ini? 😊"
+                            } else if (
+                                pesanTerkirim.contains("keluhan", true) ||
+                                pesanTerkirim.contains("komplain", true) ||
+                                pesanTerkirim.contains("gangguan", true)
+                            ) {
+                                "Baik, mohon maaf atas kendalanya ya. Bisa diinfokan keluhan detailnya mengenai apa? Apakah internetnya melambat atau putus total?"
+                            } else if (
+                                pesanTerkirim.contains("mati", true) ||
+                                pesanTerkirim.contains("los", true) ||
+                                pesanTerkirim.contains("merah", true)
+                            ) {
+                                "Waduh, lampu LOS merah atau mati ya? Boleh minta Nomor ID Pelanggan Anda agar tim teknisi kami bisa langsung mengecek jaringan ke rumah?"
                             } else if (pesanTerkirim.any { it.isDigit() } && pesanTerkirim.length > 5) {
-                                "Terima kasih, data pelanggan sedang kami sinkronisasi. Teknisi akan segera meninjau ke lokasi."
+                                "Terima kasih atas datanya. ID Pelanggan Anda sudah kami terima dan sedang disinkronisasi ke sistem teknisi lapangan. Mohon ditunggu ya!"
                             } else {
-                                "Baik, pesan Anda sudah kami terima dan akan segera direspons oleh agen kami."
+                                "Laporan Anda sudah kami catat nih. Ada informasi tambahan lain yang ingin disampaikan sebelum diteruskan ke agen spesialis kami?"
                             }
+                            // =========================================================
 
                             val pesanBot = PesanChat(balasanAdmin, false, System.currentTimeMillis())
                             chatRef.push().setValue(pesanBot)

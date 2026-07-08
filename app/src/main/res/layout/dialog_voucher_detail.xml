@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/ivDialogCoin"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/coin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Konfirmasi Penukaran"
+        android:textColor="#111111"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDialogCoin" />
+
+    <TextView
+        android:id="@+id/tvDialogSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Kamu akan menukarkan poin dengan voucher ini."
+        android:textColor="#757575"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogTitle" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardDialogTicket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="#F8F9FA"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#EAEAEA"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/tvWarning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogSubtitle"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/tvDialogNamaVoucher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Diskon Tagihan Rp 50.000"
+                    android:textColor="#265CBE"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="16dp"
+                    android:background="@drawable/bg_dashed_line"
+                    android:layerType="software" />
+
+                <TextView
+                    android:id="@+id/tvDialogSyaratKetentuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="6dp"
+                    android:text="Syarat dan Ketentuan:\n1. Voucher berlaku selama 30 hari setelah penukaran.\n2. Potongan otomatis diterapkan pada tagihan bulan berikutnya.\n3. Maksimal penggunaan 1 voucher diskon per periode tagihan.\n4. Hanya berlaku untuk ID Pelanggan yang bersangkutan (tidak dapat dipindahtangankan).\n5. Khusus untuk pelanggan aktif tanpa riwayat tunggakan.\n6. Voucher tidak dapat diuangkan atau dikembalikan jika hangus."
+                    android:textColor="#555555"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_rounded_light_blue"
+        android:backgroundTint="#F2F4F7"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="*Voucher tidak dapat ditukarkan menjadi uang tunai."
+        android:textColor="#666666"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@id/layoutButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBatalTukar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Batal"
+            android:textAllCaps="false"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#F2F4F7"
+            app:cornerRadius="28dp"
+            app:elevation="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLanjutTukar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="Tukar Poin"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#265CBE"
+            app:cornerRadius="28dp"
+            app:elevation="0dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
