@@ -95,9 +95,11 @@ Aplikasi-Megavision/
 ## 📸 6. Cuplikan Aplikasi (Screenshots)
 Berikut adalah tampilan dari aplikasi Megavision:
 
-<img width="720" height="1600" alt="image" src="https://github.com/user-attachments/assets/ee3b4c7a-ec21-45b9-83a4-798b086f4b5a" />
-
-<img width="720" height="1600" alt="image" src="https://github.com/user-attachments/assets/759b361f-ff53-4d5d-87b9-a8016725bdf9" />
+<div align="center">
+  <img width="250" alt="Halaman 1" src="https://github.com/user-attachments/assets/ee3b4c7a-ec21-45b9-83a4-798b086f4b5a" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img width="250" alt="Halaman 2" src="https://github.com/user-attachments/assets/759b361f-ff53-4d5d-87b9-a8016725bdf9" />
+</div>
 
 ## 🎥 7. Video Demo Aplikasi
 Penasaran bagaimana aplikasinya berjalan secara langsung? Kamu bisa melihat video demonstrasi penuhnya beserta penjelasan fitur-fiturnya pada tautan Google Drive di bawah ini:
