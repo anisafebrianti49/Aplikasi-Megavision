@@ -90,3 +90,41 @@ Aplikasi-Megavision/
 │   └── build.gradle.kts
 ├── build.gradle.kts
 └── README.md                      <-- Dokumentasi Proyek Ini
+
+
+## 📸 6. Cuplikan Aplikasi (Screenshots)
+Berikut adalah tampilan dari aplikasi Megavision:
+
+<img width="720" height="1600" alt="image" src="https://github.com/user-attachments/assets/ee3b4c7a-ec21-45b9-83a4-798b086f4b5a" />
+
+<img width="720" height="1600" alt="image" src="https://github.com/user-attachments/assets/759b361f-ff53-4d5d-87b9-a8016725bdf9" />
+
+## 🎥 7. Video Demo Aplikasi
+Penasaran bagaimana aplikasinya berjalan secara langsung? Kamu bisa melihat video demonstrasi penuhnya beserta penjelasan fitur-fiturnya pada tautan Google Drive di bawah ini:
+
+👉 https://drive.google.com/drive/folders/1aBOoS0Ys6ncG49XoiJrGdnPXF0BXjF6n 👈
+
+---
+
+## 💻 8. Cara Menjalankan Aplikasi (Setup & Cloning)
+
+Terdapat dua cara untuk mencoba dan menjalankan aplikasi MyApp ini:
+
+### Cara 1: Instalasi Langsung (Via File APK)
+Ini adalah cara tercepat untuk menguji aplikasi langsung di *smartphone* Android tanpa perlu melakukan proses *build*.
+
+1. Buka folder `apk/` yang ada di dalam repositori ini.
+2. Unduh file `app-release.apk`.
+3. Pindahkan file tersebut ke *smartphone* Android Anda.
+4. Buka *File Manager*, klik APK tersebut untuk menginstal. *(Pastikan izin "Install from Unknown Sources" pada HP Anda sudah aktif).*
+5. Aplikasi MyApp siap digunakan!
+
+---
+
+### Cara 2: Menjalankan Source Code (Via Android Studio & Firebase)
+Karena aplikasi ini terintegrasi dengan layanan **Firebase**, ikuti langkah-langkah berikut agar *source code* dapat berjalan tanpa *error* di Android Studio:
+
+1. **Clone Repository ke Komputer Lokal**
+   Buka *Terminal*, *Command Prompt*, atau *Git Bash*, kemudian jalankan perintah berikut:
+   ```bash
+   git clone [https://github.com/anisafebrianti49/Aplikasi-Megavision](https://github.com/anisafebrianti49/Aplikasi-Megavision)
