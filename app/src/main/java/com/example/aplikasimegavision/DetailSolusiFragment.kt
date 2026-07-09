@@ -22,19 +22,13 @@ class DetailSolusiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // MENGGUNAKAN ID BARU SESUAI XML KAMU
         val btnBack = view.findViewById<ImageView>(R.id.btnBackDetail)
         val btnYa = view.findViewById<Button>(R.id.btn_solusi_terpecahkan)
 
-        // (Opsional) Jika ingin mengubah teks lewat Kotlin, pastikan ID-nya cocok
-        // val tvSolusi = view.findViewById<TextView>(R.id.tv_detail_solusi)
-
-        // 1. Fungsi Tombol Back (Kembali ke halaman sebelumnya)
         btnBack?.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        // 2. Fungsi Tombol YA (Kembali langsung ke Dashboard Bantuan Utama)
         btnYa?.setOnClickListener {
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()

@@ -16,7 +16,6 @@ class DetailSolusiUpgradeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // FIX: Sudah diarahkan ke nama file XML yang benar sesuai tab atas Android Studio kamu
         return inflater.inflate(R.layout.fragment_detail_solusi_upgrade, container, false)
     }
 
@@ -28,15 +27,12 @@ class DetailSolusiUpgradeFragment : Fragment() {
         val btnTidak = view.findViewById<Button>(R.id.btn_tidak_solusi)
         val tvSolusi = view.findViewById<TextView>(R.id.tv_deskripsi_solusi)
 
-        // Mengisi teks konten solusi manual
         tvSolusi?.text = "1. Buka aplikasi browser Anda.\n2. Akses situs www.speedtest.net\n3. Klik tombol 'GO' dan tunggu hingga proses kalkulasi selesai."
 
-        // 1. Aksi Tombol Back (Kembali ke list pertanyaan upgrade)
         btnBack?.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        // 2. Aksi Tombol YA (Kembali ke Dasbor Bantuan Utama)
         btnYa?.setOnClickListener {
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()
@@ -44,15 +40,5 @@ class DetailSolusiUpgradeFragment : Fragment() {
                 .commit()
         }
 
-        btnTidak?.setOnClickListener {
-            // TODO: Ini tombol ke Live Chat.
-            // Menunggu digabungkan dengan class Live Chat yang asli buatan teman.
-            // Jika sudah di-merge, hapus tanda komentar (//) di bawah ini dan sesuaikan nama fragment-nya:
-
-            // parentFragmentManager.beginTransaction()
-            //     .replace(R.id.fragment_container, NamaClassLiveChatAsli())
-            //     .addToBackStack(null)
-            //     .commit()
-        }
         }
     }

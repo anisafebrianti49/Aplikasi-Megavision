@@ -32,7 +32,6 @@ class RiwayatAdapter(private val listRiwayat: List<RiwayatModel>) :
         holder.tvNominal.text = data.nominal
         holder.tvStatus.text = data.status
 
-        // Klik download di tiap baris list
         holder.btnDownloadItem.setOnClickListener {
             Toast.makeText(holder.itemView.context, "Mengunduh nota tanggal ${data.tanggal}", Toast.LENGTH_SHORT).show()
         }

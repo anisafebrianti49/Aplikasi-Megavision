@@ -1,6 +1,7 @@
 package com.example.aplikasimegavision.ui.auth
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.aplikasimegavision.MainActivity_dashboard
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentLoginBinding
 import com.google.firebase.FirebaseApp
@@ -37,14 +39,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Pengaman inisialisasi Firebase
         try {
             FirebaseApp.initializeApp(requireContext())
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        // PERBAIKAN: Masukkan URL spesifik server Asia Tenggara milikmu
         database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("pelanggan")
 
         binding.btnBack.setOnClickListener {
@@ -80,7 +80,6 @@ class LoginFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Sedang mengecek data...", Toast.LENGTH_SHORT).show()
 
-            // Cegah user klik berkali-kali saat loading
             binding.btnSubmit.isEnabled = false
             binding.btnSubmit.alpha = 0.5f
 
@@ -123,12 +122,8 @@ class LoginFragment : Fragment() {
 
                         Toast.makeText(requireContext(), "Login Berhasil!", Toast.LENGTH_SHORT).show()
 
-                        try {
-                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Action profile tidak ditemukan", e)
-                            Toast.makeText(requireContext(), "Navigasi profile belum tersedia", Toast.LENGTH_LONG).show()
-                        }
+                        startActivity(Intent(requireContext(), MainActivity_dashboard::class.java))
+                        requireActivity().finish()
                         break
                     }
                 }

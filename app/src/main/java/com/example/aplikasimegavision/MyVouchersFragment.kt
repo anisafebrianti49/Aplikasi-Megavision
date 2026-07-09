@@ -40,14 +40,10 @@ class MyVouchersFragment : Fragment() {
         rvMyVouchers = view.findViewById(R.id.rvMyVouchers)
         rvMyVouchers.layoutManager = LinearLayoutManager(requireContext())
 
-        // Memanggil fungsi Firebase
         loadDataDariFirebase()
     }
 
     private fun loadDataDariFirebase() {
-        // ==========================================
-        // PERBAIKAN: Masukkan URL spesifik di sini!
-        // ==========================================
         val database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("VoucherSaya")
 
         database.addValueEventListener(object : ValueEventListener {
@@ -64,7 +60,6 @@ class MyVouchersFragment : Fragment() {
                 rvMyVouchers.adapter = MyVoucherAdapter(
                     listVoucher = daftarVoucherAktif,
                     onGunakanClick = { voucherYgDiklik ->
-                        // FIREBASE: Hapus voucher dari database
                         database.child(voucherYgDiklik.idFirebase).removeValue()
 
                         showSuccessTukarDialog()
@@ -73,7 +68,6 @@ class MyVouchersFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Biarkan kosong
             }
         })
     }

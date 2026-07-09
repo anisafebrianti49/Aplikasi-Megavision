@@ -25,17 +25,14 @@ class DetailInboxFragment : Fragment() {
         val tvDescription = view.findViewById<TextView>(R.id.tvDetailDescription)
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
 
-        // Tangkap data yang dikirim dari list klik
         val title = arguments?.getString("TITLE")
         val date = arguments?.getString("DATE")
         val description = arguments?.getString("DESC")
 
-        // Tempelkan data ke UI Bubble
         tvTitle.text = title
         tvDate.text = date
         tvDescription.text = description
 
-        // Aksi tombol kembali ke halaman inbox utama
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }

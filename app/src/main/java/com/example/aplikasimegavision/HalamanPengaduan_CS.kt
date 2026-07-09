@@ -17,8 +17,6 @@ class HalamanPengaduan_CS : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                // LANGSUNG MENAMPILKAN HALAMAN PENGADUAN
-                // Saat tombol back di halaman pengaduan diklik, activity akan otomatis ditutup
                 PengaduanScreen(
                     onBackClicked = { finish() }
                 )

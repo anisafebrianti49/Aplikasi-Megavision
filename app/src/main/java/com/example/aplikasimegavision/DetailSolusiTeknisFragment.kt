@@ -22,16 +22,13 @@ class DetailSolusiTeknisFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // MENGGUNAKAN ID BARU SESUAI XML TEKNIS KAMU
         val btnBack = view.findViewById<ImageView>(R.id.btn_back_detail)
         val btnYa = view.findViewById<Button>(R.id.btn_solusi_terpecahkan)
 
-        // 1. Fungsi Tombol Back
         btnBack?.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        // 2. Fungsi Tombol YA
         btnYa?.setOnClickListener {
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()

@@ -19,7 +19,6 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    // Siapkan koneksi Firebase
     private lateinit var database: DatabaseReference
 
     override fun onCreateView(
@@ -33,23 +32,19 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Pengaman Inisialisasi Firebase
         try {
             FirebaseApp.initializeApp(requireContext())
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        // 2. Hubungkan ke Database Server Singapura
         database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan")
 
-        // Tombol Back
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        // Fungsi cek input agar tahan dari auto-fill
         fun checkInputAndUpdateButton() {
             val input = binding.etNomorPelanggan.text?.toString()?.trim() ?: ""
             val isEnabled = input.isNotEmpty()
@@ -60,7 +55,6 @@ class RegisterFragment : Fragment() {
 
         checkInputAndUpdateButton()
 
-        // Listener untuk kolom input
         binding.etNomorPelanggan.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -69,7 +63,6 @@ class RegisterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 3. Aksi saat tombol Submit diklik
         binding.btnSubmit.setOnClickListener {
             val nomorPelanggan = binding.etNomorPelanggan.text.toString().trim()
             prosesRegistrasi(nomorPelanggan)
@@ -82,19 +75,16 @@ class RegisterFragment : Fragment() {
 
 
     private fun prosesRegistrasi(nomorInput: String) {
-        // Matikan tombol sementara agar tidak dobel klik
         binding.btnSubmit.isEnabled = false
         binding.btnSubmit.alpha = 0.5f
         Toast.makeText(requireContext(), "Mengecek data...", Toast.LENGTH_SHORT).show()
 
-        // Menggunakan addListenerForSingleValueEvent karena kita butuh membaca data keseluruhan
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!isAdded || _binding == null) return
 
                 var nomorSudahAda = false
 
-                // Looping untuk cek apakah nomor pelanggan sudah dipakai
                 for (userSnapshot in snapshot.children) {
                     val dbNomor = userSnapshot.child("nomor_pelanggan").value?.toString() ?: ""
                     if (dbNomor == nomorInput) {
@@ -108,7 +98,6 @@ class RegisterFragment : Fragment() {
                     binding.btnSubmit.isEnabled = true
                     binding.btnSubmit.alpha = 1.0f
                 } else {
-                    // JIKA NOMOR BELUM ADA: Buat akun baru
                     val jumlahUserSekarang = snapshot.childrenCount
                     val newUserId = String.format("user_%03d", jumlahUserSekarang + 1)
 
@@ -122,7 +111,6 @@ class RegisterFragment : Fragment() {
                         "kode_referral" to newUserId.replace("user_", "10000")
                     )
 
-                    // Simpan data baru ke Firebase
                     database.child(newUserId).setValue(newUserMap).addOnCompleteListener { task ->
                         if (!isAdded || _binding == null) return@addOnCompleteListener
 

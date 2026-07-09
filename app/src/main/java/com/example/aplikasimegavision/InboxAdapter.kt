@@ -36,25 +36,18 @@ class InboxAdapter(private val itemList: List<InboxItem>) :
         } else {
             holder.viewRedDot.visibility = View.GONE
         }
-
-        // Aksi klik untuk pindah ke halaman detail bubble chat
         holder.itemView.setOnClickListener { view ->
-            // 1. Menghubungkan context dengan FragmentActivity agar supportFragmentManager bisa terbaca
             val activity = view.context as FragmentActivity
-
-            // 2. Membungkus data untuk dikirim ke halaman detail
             val bundle = Bundle().apply {
                 putString("TITLE", item.title)
                 putString("DATE", item.date)
                 putString("DESC", item.description)
             }
 
-            // 3. Menyiapkan fragment detail dengan data di atas
             val detailFragment = DetailInboxFragment().apply {
                 arguments = bundle
             }
 
-            // 4. Memulai proses perpindahan halaman
             activity.supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detailFragment)
                 .addToBackStack(null)

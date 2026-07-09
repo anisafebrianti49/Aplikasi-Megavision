@@ -26,12 +26,10 @@ class TagihanFragment : Fragment() {
         val btnMetode = view.findViewById<Button>(R.id.btnMetodePembayaran)
         val rvRiwayat = view.findViewById<RecyclerView>(R.id.rvRiwayat)
 
-        // 1. Tombol Download Tagihan Utama
         btnDownload.setOnClickListener {
             Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT).show()
         }
 
-        // 2. Tombol Pindah ke Halaman WebView Metode Pembayaran
         btnMetode.setOnClickListener {
             val fragmentTujuan = MetodePembayaranFragment()
             parentFragmentManager.beginTransaction()
@@ -40,7 +38,6 @@ class TagihanFragment : Fragment() {
                 .commit()
         }
 
-        // 3. Membuat List Data Riwayat Tiruan sesuai Mockup Kakak
         val dataRiwayat = listOf(
             RiwayatModel("26 Apr 26", "Transfer Mandiri (VA Mandiri)", "Rp. 850.000", "Success"),
             RiwayatModel("13 Apr 26", "Transfer Mandiri (VA Mandiri)", "Rp. 50.000", "Success"),
@@ -49,7 +46,6 @@ class TagihanFragment : Fragment() {
             RiwayatModel("11 Feb 26", "Transfer Mandiri (VA Mandiri)", "Rp. 110.000", "Success")
         )
 
-        // 4. Set Up RecyclerView agar List Tampil Tegak Lurus ke Bawah
         rvRiwayat.layoutManager = LinearLayoutManager(requireContext())
         rvRiwayat.adapter = RiwayatAdapter(dataRiwayat)
     }

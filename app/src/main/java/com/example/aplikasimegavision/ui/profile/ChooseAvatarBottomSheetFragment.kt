@@ -59,7 +59,7 @@ class ChooseAvatarBottomSheetFragment : BottomSheetDialogFragment() {
         parentFragmentManager.setFragmentResult("avatar_changed_request", Bundle())
 
         Toast.makeText(requireContext(), "Foto profil diperbarui!", Toast.LENGTH_SHORT).show()
-        dismiss() // Tutup Bottom Sheet otomatis
+        dismiss()
     }
 
     override fun onDestroyView() {

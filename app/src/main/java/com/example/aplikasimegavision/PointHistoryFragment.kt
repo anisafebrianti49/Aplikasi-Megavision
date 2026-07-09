@@ -31,10 +31,6 @@ class PointHistoryFragment : Fragment() {
         if (rvRiwayat != null) {
             rvRiwayat.layoutManager = LinearLayoutManager(requireContext())
 
-            // ==========================================
-            // LOGIKA BARU: Tarik data dari Penyimpanan Global
-            // ==========================================
-            // Kodenya jadi sangat pendek karena datanya diambil dari RiwayatManager
             rvRiwayat.adapter = RiwayatPoinAdapter(RiwayatManager.dataRiwayat)
         }
     }

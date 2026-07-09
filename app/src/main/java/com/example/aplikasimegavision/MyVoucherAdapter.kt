@@ -24,10 +24,8 @@ class MyVoucherAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val voucher = listVoucher[position]
 
-        // Mengubah teks judul sesuai data dari Firebase
         holder.tvNamaVoucher.text = voucher.namaVoucher
 
-        // Mengirim data voucher ke Fragment untuk dihapus saat diklik
         holder.btnGunakan.setOnClickListener { onGunakanClick(voucher) }
     }
 

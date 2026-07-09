@@ -12,8 +12,9 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.content.Context
 import com.example.aplikasimegavision.UI.upgradepaket.UpgradePaketFragment
-
+import com.example.aplikasimegavision.ui.profile.ProfileFragment
 
 
 class MainActivity_dashboard : AppCompatActivity() {
@@ -24,15 +25,9 @@ class MainActivity_dashboard : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_dashboard)
-
-        // Inisialisasi View sesuai ID yang ada di activity_main.xml
-        // tv_email DIHAPUS karena sudah tidak ada lagi di XML (header
-        // sekarang cuma Welcome + Username + Status)
         val tvUsername = findViewById<TextView>(R.id.tv_username)
         val btnGantiAkun = findViewById<Button>(R.id.btn_ganti_akun)
         val btnCsPengaduan = findViewById<CardView>(R.id.btn_cs_pengaduan)
-
-        // Di xml kamu, btn_cs_floating dibuat menggunakan CardView, bukan ImageButton
         val btnCsFloating = findViewById<CardView>(R.id.btn_cs_floating)
         val btnMetodePembayaran = findViewById<CardView>(R.id.btn_metode_pembayaran)
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -40,9 +35,6 @@ class MainActivity_dashboard : AppCompatActivity() {
         homeContent = findViewById(R.id.home_content)
         fragmentContainer = findViewById(R.id.fragment_container)
 
-        // Fix nav bar "gepeng" -> beri padding bawah sebesar tinggi
-        // system navigation bar (gesture bar / 3-button nav), berlaku
-        // otomatis di semua merk HP karena pakai API standar AndroidX
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavigation) { view, insets ->
             val systemBarsInset = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(
@@ -52,6 +44,16 @@ class MainActivity_dashboard : AppCompatActivity() {
                 systemBarsInset.bottom
             )
             insets
+        }
+
+        btnGantiAkun.setOnClickListener {
+            getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply()
+
+            startActivity(Intent(this, ProfileAuthActivity::class.java))
+            finish()
         }
 
         btnUpgradePaket.setOnClickListener {
@@ -73,8 +75,9 @@ class MainActivity_dashboard : AppCompatActivity() {
         }
 
         btnUpgradePaket.setOnClickListener {
-            showFragment(FaqUpgradeKecepatanFragment())
+            showFragment(UpgradePaketFragment())
         }
+
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -96,7 +99,7 @@ class MainActivity_dashboard : AppCompatActivity() {
                     true
                 }
                 R.id.nav_profil -> {
-                    showAuthNavHost()
+                    showFragment(ProfileFragment())
                     true
                 }
                 else -> false
@@ -119,7 +122,6 @@ class MainActivity_dashboard : AppCompatActivity() {
         }
     }
 
-    /** Menampilkan kembali konten Beranda dan menyembunyikan fragment container. */
     private fun showHome() {
         fragmentContainer.visibility = View.GONE
         homeContent.visibility = View.VISIBLE
@@ -129,7 +131,6 @@ class MainActivity_dashboard : AppCompatActivity() {
         )
     }
 
-    /** Menyembunyikan Beranda dan menampilkan fragment yang dipilih di fragment_container. */
     private fun showFragment(fragment: androidx.fragment.app.Fragment) {
         homeContent.visibility = View.GONE
         fragmentContainer.visibility = View.VISIBLE

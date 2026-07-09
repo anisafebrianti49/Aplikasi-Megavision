@@ -337,7 +337,6 @@ fun LayarDetailSyarat(namaPaket: String, hargaPaket: String, onSetujuClick: () -
 
         Button(
             onClick = {
-                // Beri jeda waktu biar tombolnya membal sempurna sebelum pindah layar
                 coroutineScope.launch {
                     delay(150)
                     onSetujuClick()
@@ -431,12 +430,12 @@ fun LayarFormulirKonfirmasi(namaPaket: String, hargaPaket: String, onSuksesSubmi
                         onSuksesSubmit()
                     }
             },
-            enabled = isFormValid, // Tombol ini baru membal kalau form diisi dengan benar!
+            enabled = isFormValid,
             interactionSource = interactionSource,
             modifier = Modifier.fillMaxWidth().height(54.dp).bounceScale(interactionSource),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MegavisionBlue,
-                disabledContainerColor = Color(0xFFCBD5E1) // Warna abu-abu saat tombol dikunci
+                disabledContainerColor = Color(0xFFCBD5E1)
             ),
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -445,13 +444,10 @@ fun LayarFormulirKonfirmasi(namaPaket: String, hargaPaket: String, onSuksesSubmi
     }
 }
 
-// =================================================================
-// MODIFIER ANIMASI (DIPERBARUI BIAR BOUNCE MAKIN TERLIHAT)
-// =================================================================
 fun Modifier.bounceScale(interactionSource: MutableInteractionSource) = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.92f else 1f, // 0.92f biar efek menciutnya lebih dalam
+        targetValue = if (isPressed) 0.92f else 1f,
         animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
         label = ""
     )
@@ -467,7 +463,6 @@ fun Modifier.bounceClick(onClick: () -> Unit) = composed {
             interactionSource = interactionSource,
             indication = null,
             onClick = {
-                // Tahan layarnya 150 milidetik biar animasinya membal dulu!
                 coroutineScope.launch {
                     delay(150)
                     onClick()

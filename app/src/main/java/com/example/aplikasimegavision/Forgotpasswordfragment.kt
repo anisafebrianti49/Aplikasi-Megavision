@@ -19,8 +19,8 @@ class ForgotPasswordFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
-    private var isVerified = false // Status apakah nomor sudah terverifikasi
-    private var verifiedUserId = "" // Menyimpan ID user yang ditemukan
+    private var isVerified = false
+    private var verifiedUserId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,10 +41,8 @@ class ForgotPasswordFragment : Fragment() {
 
         binding.btnSubmit.setOnClickListener {
             if (!isVerified) {
-                // TAHAP 1: Cari nomor pelanggan
                 prosesCekNomor(binding.etNomorPelanggan.text.toString().trim())
             } else {
-                // TAHAP 2: Simpan password baru
                 prosesSimpanPasswordBaru(binding.etPasswordBaru.text.toString().trim())
             }
         }
@@ -59,7 +57,6 @@ class ForgotPasswordFragment : Fragment() {
                         isVerified = true
                         verifiedUserId = userSnapshot.key ?: ""
 
-                        // Tampilkan field password baru
                         binding.etNomorPelanggan.isEnabled = false
                         binding.etPasswordBaru.visibility = View.VISIBLE
                         binding.btnSubmit.text = "Simpan Password Baru"

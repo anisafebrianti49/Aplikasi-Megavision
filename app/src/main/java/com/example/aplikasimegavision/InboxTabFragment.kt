@@ -37,17 +37,14 @@ class InboxTabFragment : Fragment() {
         val tabPosition = arguments?.getInt("TAB_POSITION") ?: 0
 
         if (tabPosition == 2) {
-            // Khusus tab Promo dibuat kosong
             rvInboxItems.visibility = View.GONE
             layoutEmptyState.visibility = View.VISIBLE
         } else {
-            // Tab Semua dan Personal menampilkan list data
             rvInboxItems.visibility = View.VISIBLE
             layoutEmptyState.visibility = View.GONE
 
             rvInboxItems.layoutManager = LinearLayoutManager(context)
 
-            // Mengisi data dummy persis seperti gambar tugasmu
             val listPesan = ArrayList<InboxItem>()
             listPesan.add(InboxItem(
                 "Pemberitahuan Pemblokiran",

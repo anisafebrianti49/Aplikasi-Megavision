@@ -118,9 +118,6 @@ class VoucherCatalogFragment : Fragment() {
             saldoPoinSaatIni -= voucher.poinDibutuhkan
             updateTampilanSaldo()
 
-            // ==========================================
-            // 1. FIREBASE: Simpan data ke Voucher Saya
-            // ==========================================
             val database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("VoucherSaya")
             val idFirebaseBaru = database.push().key ?: ""
 
@@ -131,10 +128,6 @@ class VoucherCatalogFragment : Fragment() {
 
             database.child(idFirebaseBaru).setValue(voucherBaru)
 
-            // ==========================================
-            // 2. RIWAYAT: Catat transaksi baru
-            // ==========================================
-            // Mengambil jam dan tanggal saat ini secara otomatis
             val sdf = SimpleDateFormat("dd MMMM yyyy • HH:mm 'WIB'", Locale("id", "ID"))
             val tanggalSekarang = sdf.format(Date())
 
@@ -145,7 +138,6 @@ class VoucherCatalogFragment : Fragment() {
                 isPoinMasuk = false
             )
 
-            // Memasukkan riwayat baru ke posisi paling atas (index 0)
             RiwayatManager.dataRiwayat.add(0, riwayatBaru)
 
             tampilkanPopUpSukses(voucher)

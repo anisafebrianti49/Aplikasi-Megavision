@@ -20,16 +20,12 @@ class InboxFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // 1. Inisialisasi komponen View dari XML
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutInbox)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPagerInbox)
 
-        // 2. Pasang Adapter ke ViewPager2
         val adapter = InboxPagerAdapter(this)
         viewPager.adapter = adapter
 
-        // 3. Hubungkan TabLayout dengan ViewPager2 serta Beri Nama Tab-nya
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Semua"

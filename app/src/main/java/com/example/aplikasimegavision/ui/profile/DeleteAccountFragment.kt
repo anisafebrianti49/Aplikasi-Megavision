@@ -37,14 +37,12 @@ class DeleteAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Pengaman Inisialisasi Firebase
         try {
             FirebaseApp.initializeApp(requireContext())
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        // 2. Ambil ID User dari SharedPreferences
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
 
@@ -53,18 +51,14 @@ class DeleteAccountFragment : Fragment() {
             return
         }
 
-        // 3. Hubungkan ke Database Server Singapura
         database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan").child(userId)
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        // Jalankan pengecekan di awal untuk antisipasi auto-fill
         checkInputAndUpdateButton()
 
-        // Aktifkan tombol Hapus Akun hanya jika kedua field terisi
         val watcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -104,26 +98,20 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun hapusAkunDariFirebase() {
-        // Ambil inputan dari EditText
         val inputNomor = binding.etNomorTelepon.text?.toString()?.trim() ?: ""
 
         Toast.makeText(requireContext(), "Memvalidasi data...", Toast.LENGTH_SHORT).show()
         binding.btnHapusAkun.isEnabled = false
 
-        // 4. Validasi ke Firebase Database sebelum menghapus
         database.get().addOnSuccessListener { snapshot ->
             if (!isAdded || _binding == null) return@addOnSuccessListener
 
             if (snapshot.exists()) {
-                // Ambil data nomor_telepon dari database
                 val nomorDiDatabase = snapshot.child("nomor_telepon").value?.toString() ?: ""
 
-                // 5. Cek apakah inputan sama dengan data di database
                 if (inputNomor == nomorDiDatabase) {
-                    // Jika cocok, lanjutkan ke proses hapus
                     eksekusiHapusData()
                 } else {
-                    // Jika tidak cocok, batalkan dan tampilkan pesan
                     binding.btnHapusAkun.isEnabled = true
                     Toast.makeText(requireContext(), "Validasi Gagal: Nomor telepon tidak sesuai dengan akun ini.", Toast.LENGTH_LONG).show()
                 }
@@ -139,20 +127,17 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun eksekusiHapusData() {
-        // 6. Perintah sakti untuk menghapus data di Firebase
         database.removeValue().addOnCompleteListener { task ->
             if (!isAdded || _binding == null) return@addOnCompleteListener
 
             if (task.isSuccessful) {
                 Toast.makeText(requireContext(), "Akun berhasil dihapus", Toast.LENGTH_LONG).show()
 
-                // 7. Bersihkan data login dari memori HP
                 requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
                     .edit()
                     .clear()
                     .apply()
 
-                // 8. Arahkan pengguna kembali ke halaman Login/Awal
                 try {
                     findNavController().navigate(R.id.loginFragment)
                 } catch (e: Exception) {

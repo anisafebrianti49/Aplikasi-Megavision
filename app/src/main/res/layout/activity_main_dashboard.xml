@@ -502,14 +502,6 @@
                     android:textStyle="bold"
                     android:textColor="#0F172A"
                     android:textSize="@dimen/text_section_title" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="Lihat Semua"
-                    android:textColor="#2F66D4"
-                    android:textStyle="bold"
-                    android:textSize="13sp" />
             </RelativeLayout>
 
             <HorizontalScrollView

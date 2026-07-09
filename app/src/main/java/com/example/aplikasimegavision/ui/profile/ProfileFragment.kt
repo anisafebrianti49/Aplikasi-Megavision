@@ -114,23 +114,6 @@ class ProfileFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.bottomNavigation.selectedItemId = R.id.nav_profil // set state aktif
-
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_profil -> true // sudah di sini
-                else -> {
-                    val intent = Intent(requireContext(), MainActivity_dashboard::class.java).apply {
-                        putExtra("SELECTED_NAV_ITEM", item.itemId)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    }
-                    startActivity(intent)
-                    requireActivity().finish()
-                    true
-                }
-            }
-        }
-
         val databaseRef = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan").child(userId)
 
@@ -185,7 +168,6 @@ class ProfileFragment : Fragment() {
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         val savedAvatar = prefs.getString("SAVED_AVATAR_$userId", "default")
 
-        // Memetakan string SharedPreferences ke resource drawable asli secara dinamis
         val imageResource = when (savedAvatar) {
             "avatar_1" -> R.drawable.avatar_1
             "avatar_2" -> R.drawable.avatar_2

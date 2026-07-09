@@ -1,7 +1,6 @@
 package com.example.aplikasimegavision
 
 object RiwayatManager {
-    // Menggunakan mutableListOf supaya daftarnya bisa ditambah data baru
     val dataRiwayat = mutableListOf(
         RiwayatPoin("Tukar Voucher Diskon Rp 50.000", "05 Juli 2026 • 10:15 WIB", 450, false),
         RiwayatPoin("Pembayaran Tagihan Juli", "01 Juli 2026 • 08:30 WIB", 100, true),

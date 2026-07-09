@@ -24,14 +24,11 @@ class MetodePembayaranFragment : Fragment() {
         val webView = view.findViewById<WebView>(R.id.webViewMetode)
         val btnBack = view.findViewById<ImageView>(R.id.btnBackTagihan)
 
-        // Pengaturan WebView
         webView.settings.javaScriptEnabled = true
-        webView.webViewClient = WebViewClient() // Supaya web dibuka di dalam aplikasi saja
+        webView.webViewClient = WebViewClient()
 
-        // Memasukkan URL Megavision
         webView.loadUrl("https://megavision.net.id/blog/metode-pembayaran-tagihan-megavision")
 
-        // Aksi Back
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
