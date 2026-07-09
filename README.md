@@ -58,7 +58,7 @@ Repositori ini disusun secara rapi sesuai standar industri dan instruksi UAS:
     ├── apk/
     │   └── app-release.apk            <-- File APK produksi siap instal (Release Build)
     ├── docs/
-    │   └── Laporan_OOAD_Kelompok2.pdf <-- Dokumen analisis OOAD PT Megavision
+    │   └── LAPORAN PENUGASAN AKHIR KELOMPOK_2.pdf <-- Dokumen analisis OOAD PT Megavision
     ├── app/
     │   ├── src/
     │   │   ├── main/
@@ -105,7 +105,8 @@ Karena aplikasi ini terintegrasi dengan layanan **Firebase**, ikuti langkah-lang
 
 1. **Clone Repository ke Komputer Lokal**
    Buka *Terminal*, *Command Prompt*, atau *Git Bash*, kemudian jalankan perintah berikut:
-   git clone https://github.com/anisafebrianti49/Aplikasi-Megavision
+
+       git clone https://github.com/anisafebrianti49/Aplikasi-Megavision
 
 2. **Buka Proyek di Android Studio**
    - Buka aplikasi **Android Studio**.
