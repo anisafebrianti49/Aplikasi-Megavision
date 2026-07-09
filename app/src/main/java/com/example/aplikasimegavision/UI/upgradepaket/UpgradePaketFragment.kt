@@ -18,7 +18,7 @@ class UpgradePaketFragment : Fragment() {
             setContent {
                 UpgradePaketScreen(
                     onBackClicked = {
-                        parentFragmentManager.popBackStack()
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     }
                 )
             }

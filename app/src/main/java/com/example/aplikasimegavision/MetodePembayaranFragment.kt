@@ -30,7 +30,7 @@ class MetodePembayaranFragment : Fragment() {
         webView.loadUrl("https://megavision.net.id/blog/metode-pembayaran-tagihan-megavision")
 
         btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 }

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_beranda"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/dashboard"
         android:title="Beranda" />
     <item
         android:id="@+id/nav_tagihan"
@@ -14,7 +14,7 @@
         android:title="Inbox" />
     <item
         android:id="@+id/nav_voucher"
-        android:icon="@drawable/coin"
+        android:icon="@drawable/coupon"
         android:title="Voucher" />
     <item
         android:id="@+id/nav_profil"
