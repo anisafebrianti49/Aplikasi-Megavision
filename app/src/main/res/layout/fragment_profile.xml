@@ -29,12 +29,13 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/tv_ubah_data"
+                android:id="@+id/tvUbahData"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="Ubah Data"
+                android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -375,6 +376,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

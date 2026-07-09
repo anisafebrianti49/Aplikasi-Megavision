@@ -3,7 +3,6 @@ package com.example.aplikasimegavision.ui.profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +12,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.aplikasimegavision.MainActivity_dashboard
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentProfileBinding
+import com.example.aplikasimegavision.ui.auth.LoginFragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -47,6 +46,7 @@ class ProfileFragment : Fragment() {
         try {
             binding.rowTanggalLahir.tvRowLabel.text = "Tanggal Lahir"
 
+            // KODE PERBAIKAN: Menggunakan ID yang benar dari XML kamu
             binding.rowTanggalLahir.ivActionIcon.visibility = android.view.View.GONE
 
         } catch (e: Exception) {
@@ -61,18 +61,23 @@ class ProfileFragment : Fragment() {
             return
         }
 
+        // 1. TAMPILKAN FOTO PROFIL AWAL DARI SHAREDPREFERENCES LOKAL
         loadLocalProfileImage(userId)
+
+        // 2. DAFTARKAN LISTENER (PENERIMA SINYAL) JIKA AVATAR DIUBAH DI BOTTOM SHEET
         parentFragmentManager.setFragmentResultListener("avatar_changed_request", viewLifecycleOwner) { _, _ ->
-            loadLocalProfileImage(userId)
+            loadLocalProfileImage(userId) // Gambar langsung di-refresh otomatis pas bottom sheet ditutup!
         }
 
+        // 3. AKSI KLIK FOTO PROFIL -> MUNCULKAN BOTTOM SHEET GRID 10 AVATAR
         binding.ivProfile.setOnClickListener {
             val avatarBottomSheet = ChooseAvatarBottomSheetFragment()
             avatarBottomSheet.show(parentFragmentManager, "ChooseAvatarBottomSheetTag")
         }
 
+        // --- Aksi klik navigasi lainnya tetap sama ---
         binding.tvUbahData.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_editProfileFragment, "Edit Profile")
+            safeNavigate(EditProfileFragment())
         }
 
         binding.btnCopyReferral.setOnClickListener {
@@ -86,34 +91,34 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnTambahTelepon.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_addPhoneFragment, "Tambah Telepon")
+            safeNavigate(AddPhoneFragment())
         }
 
         binding.btnEditPassword.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_changePasswordFragment, "Ubah Password")
+            safeNavigate(ChangePasswordFragment())
         }
 
+
         binding.rowGantiAkun.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_loginFragment, "Halaman Login")
+            safeNavigate(LoginFragment())
         }
 
         binding.rowKebijakanPrivasi.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_privacyPolicyFragment, "Kebijakan Privasi")
+            safeNavigate(PrivacyPolicyFragment())
         }
 
         binding.rowHapusAkun.setOnClickListener {
-            safeNavigate(R.id.action_profileFragment_to_deleteAccountFragment, "Hapus Akun")
+            safeNavigate(DeleteAccountFragment())
         }
 
         binding.btnKeluar.setOnClickListener {
-            requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
-                .edit()
-                .clear()
-                .apply()
-
-            requireActivity().finish()
+            val logoutBottomSheet = LogoutBottomSheetFragment()
+            logoutBottomSheet.show(parentFragmentManager, "LogoutBottomSheetTag")
         }
 
+        // ==========================================
+        // PROSES PEMBACAAN DATA TEKS DARI DATABASE
+        // ==========================================
         val databaseRef = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
             .getReference("pelanggan").child(userId)
 
@@ -162,12 +167,16 @@ class ProfileFragment : Fragment() {
         })
     }
 
+    // ==========================================
+    // SEKARANG SE-MANTAP INI FUNGSI LOAD FOTO LOKALNYA (MENDUKUNG 10 AVATAR)
+    // ==========================================
     private fun loadLocalProfileImage(userId: String) {
         if (_binding == null) return
 
         val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         val savedAvatar = prefs.getString("SAVED_AVATAR_$userId", "default")
 
+        // Memetakan string SharedPreferences ke resource drawable asli secara dinamis
         val imageResource = when (savedAvatar) {
             "avatar_1" -> R.drawable.avatar_1
             "avatar_2" -> R.drawable.avatar_2
@@ -185,18 +194,11 @@ class ProfileFragment : Fragment() {
         binding.ivProfile.setImageResource(imageResource)
     }
 
-    private fun safeNavigate(actionId: Int, destinationName: String) {
-        try {
-            findNavController().navigate(actionId)
-        } catch (e: IllegalArgumentException) {
-            Toast.makeText(
-                requireContext(),
-                "Navigasi ke $destinationName belum disambungkan di nav_graph.xml",
-                Toast.LENGTH_SHORT
-            ).show()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private fun safeNavigate(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {

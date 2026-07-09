@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentPrivacyPolicyBinding
 
 class PrivacyPolicyFragment : Fragment() {
@@ -25,9 +25,15 @@ class PrivacyPolicyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment())
+                .commit()
         }
 
+        /*
+         Teks Kebijakan Privasi cukup diletakkan di XML
+         agar tetap bisa dibaca secara offline.
+        */
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,7 @@
 package com.example.aplikasimegavision.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.aplikasimegavision.ProfileAuthActivity
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentDeleteAccountBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -22,12 +23,12 @@ class DeleteAccountFragment : Fragment() {
     private var _binding: FragmentDeleteAccountBinding? = null
     private val binding get() = _binding!!
 
-    // Variabel untuk Firebase
     private lateinit var database: DatabaseReference
     private var userId: String = ""
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDeleteAccountBinding.inflate(inflater, container, false)
@@ -43,7 +44,9 @@ class DeleteAccountFragment : Fragment() {
             e.printStackTrace()
         }
 
-        val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+        val prefs = requireActivity()
+            .getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+
         userId = prefs.getString("USER_ID", "") ?: ""
 
         if (userId.isEmpty()) {
@@ -51,19 +54,31 @@ class DeleteAccountFragment : Fragment() {
             return
         }
 
-        database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
-            .getReference("pelanggan").child(userId)
+        database = FirebaseDatabase
+            .getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .getReference("pelanggan")
+            .child(userId)
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment())
+                .commit()
         }
+
         checkInputAndUpdateButton()
 
         val watcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
                 checkInputAndUpdateButton()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         }
 
@@ -76,21 +91,20 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun checkInputAndUpdateButton() {
-        val nomor = binding.etNomorTelepon.text?.toString()?.trim() ?: ""
-        val alasan = binding.etAlasanHapus.text?.toString()?.trim() ?: ""
-        val isEnabled = nomor.isNotEmpty() && alasan.isNotEmpty()
+        val nomor = binding.etNomorTelepon.text.toString().trim()
+        val alasan = binding.etAlasanHapus.text.toString().trim()
 
-        binding.btnHapusAkun.isEnabled = isEnabled
-        binding.btnHapusAkun.alpha = if (isEnabled) 1.0f else 0.5f
+        val enable = nomor.isNotEmpty() && alasan.isNotEmpty()
+
+        binding.btnHapusAkun.isEnabled = enable
+        binding.btnHapusAkun.alpha = if (enable) 1f else 0.5f
     }
 
     private fun showDeleteConfirmationDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Konfirmasi Hapus Akun")
-            .setMessage("Apakah Anda yakin ingin menghapus akun My Megavision Anda? Tindakan ini tidak dapat dibatalkan.")
-            .setNegativeButton("Batal") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setMessage("Apakah Anda yakin ingin menghapus akun My Megavision? Tindakan ini tidak dapat dibatalkan.")
+            .setNegativeButton("Batal", null)
             .setPositiveButton("Hapus") { _, _ ->
                 hapusAkunDariFirebase()
             }
@@ -98,56 +112,100 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun hapusAkunDariFirebase() {
-        val inputNomor = binding.etNomorTelepon.text?.toString()?.trim() ?: ""
 
-        Toast.makeText(requireContext(), "Memvalidasi data...", Toast.LENGTH_SHORT).show()
+        val inputNomor =
+            binding.etNomorTelepon.text.toString().trim()
+
         binding.btnHapusAkun.isEnabled = false
 
         database.get().addOnSuccessListener { snapshot ->
+
             if (!isAdded || _binding == null) return@addOnSuccessListener
 
-            if (snapshot.exists()) {
-                val nomorDiDatabase = snapshot.child("nomor_telepon").value?.toString() ?: ""
-
-                if (inputNomor == nomorDiDatabase) {
-                    eksekusiHapusData()
-                } else {
-                    binding.btnHapusAkun.isEnabled = true
-                    Toast.makeText(requireContext(), "Validasi Gagal: Nomor telepon tidak sesuai dengan akun ini.", Toast.LENGTH_LONG).show()
-                }
-            } else {
+            if (!snapshot.exists()) {
                 binding.btnHapusAkun.isEnabled = true
-                Toast.makeText(requireContext(), "Akun tidak ditemukan di database.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Akun tidak ditemukan",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@addOnSuccessListener
             }
-        }.addOnFailureListener { exception ->
-            if (!isAdded || _binding == null) return@addOnFailureListener
+
+            val nomorDatabase =
+                snapshot.child("nomor_telepon").value?.toString() ?: ""
+
+            if (inputNomor != nomorDatabase) {
+
+                binding.btnHapusAkun.isEnabled = true
+
+                Toast.makeText(
+                    requireContext(),
+                    "Nomor telepon tidak sesuai",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                return@addOnSuccessListener
+            }
+
+            eksekusiHapusData()
+
+        }.addOnFailureListener {
+
             binding.btnHapusAkun.isEnabled = true
-            Toast.makeText(requireContext(), "Gagal memvalidasi: ${exception.message}", Toast.LENGTH_LONG).show()
+
+            Toast.makeText(
+                requireContext(),
+                "Gagal memvalidasi data",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     private fun eksekusiHapusData() {
+
         database.removeValue().addOnCompleteListener { task ->
+
             if (!isAdded || _binding == null) return@addOnCompleteListener
 
             if (task.isSuccessful) {
-                Toast.makeText(requireContext(), "Akun berhasil dihapus", Toast.LENGTH_LONG).show()
 
-                requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+                requireActivity()
+                    .getSharedPreferences(
+                        "MegavisionPrefs",
+                        Context.MODE_PRIVATE
+                    )
                     .edit()
                     .clear()
                     .apply()
 
-                try {
-                    findNavController().navigate(R.id.loginFragment)
-                } catch (e: Exception) {
-                    val intent = requireActivity().intent
-                    requireActivity().finish()
-                    startActivity(intent)
-                }
+                Toast.makeText(
+                    requireContext(),
+                    "Akun berhasil dihapus",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                val intent = Intent(
+                    requireContext(),
+                    ProfileAuthActivity::class.java
+                )
+
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                startActivity(intent)
+                requireActivity().finish()
+
             } else {
+
                 binding.btnHapusAkun.isEnabled = true
-                Toast.makeText(requireContext(), "Gagal menghapus akun: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+
+                Toast.makeText(
+                    requireContext(),
+                    "Gagal menghapus akun: ${task.exception?.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

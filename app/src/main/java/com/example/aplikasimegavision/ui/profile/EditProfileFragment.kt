@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.aplikasimegavision.R
 import com.example.aplikasimegavision.databinding.FragmentEditProfileBinding
 import com.google.firebase.FirebaseApp
@@ -28,7 +27,8 @@ class EditProfileFragment : Fragment() {
     private var userId: String = ""
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
@@ -44,7 +44,8 @@ class EditProfileFragment : Fragment() {
             e.printStackTrace()
         }
 
-        val prefs = requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
+        val prefs =
+            requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
 
         if (userId.isEmpty()) {
@@ -52,13 +53,14 @@ class EditProfileFragment : Fragment() {
             return
         }
 
-        database = FirebaseDatabase.getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
-            .getReference("pelanggan").child(userId)
+        database = FirebaseDatabase
+            .getInstance("https://myapp-megavision-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .getReference("pelanggan")
+            .child(userId)
 
         setupToolbar()
         setupGenderDropdown()
         setupDatePicker()
-
         populateExistingData()
 
         binding.btnSimpanPerubahan.setOnClickListener {
@@ -68,13 +70,25 @@ class EditProfileFragment : Fragment() {
 
     private fun setupToolbar() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment())
+                .commit()
         }
     }
 
     private fun setupGenderDropdown() {
-        val genderOptions = listOf("Pilih Jenis Kelamin", "Laki-laki", "Perempuan")
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, genderOptions)
+        val genderOptions = listOf(
+            "Pilih Jenis Kelamin",
+            "Laki-laki",
+            "Perempuan"
+        )
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.item_dropdown,
+            genderOptions
+        )
+
         binding.actvJenisKelamin.setAdapter(adapter)
     }
 
@@ -82,19 +96,27 @@ class EditProfileFragment : Fragment() {
         binding.etTanggalLahir.setOnClickListener {
             showDatePickerDialog()
         }
+
         binding.tilTanggalLahir.setEndIconOnClickListener {
             showDatePickerDialog()
         }
     }
 
     private fun showDatePickerDialog() {
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
-            binding.etTanggalLahir.setText(sdf.format(calendar.time))
-        }
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val sdf =
+                    SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
+
+                binding.etTanggalLahir.setText(sdf.format(calendar.time))
+            }
+
         DatePickerDialog(
             requireContext(),
             dateSetListener,
@@ -105,33 +127,51 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun populateExistingData() {
+
         database.addListenerForSingleValueEvent(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 if (!isAdded || _binding == null) return
 
                 if (snapshot.exists()) {
-                    val nama = snapshot.child("nama").value?.toString() ?: ""
-                    val tanggalLahir = snapshot.child("tanggal_lahir").value?.toString() ?: ""
-                    val jenisKelamin = snapshot.child("jenis_kelamin").value?.toString() ?: ""
+
+                    val nama =
+                        snapshot.child("nama").value?.toString() ?: ""
+
+                    val tanggalLahir =
+                        snapshot.child("tanggal_lahir").value?.toString() ?: ""
+
+                    val jenisKelamin =
+                        snapshot.child("jenis_kelamin").value?.toString() ?: ""
 
                     binding.etNamaLengkap.setText(nama)
                     binding.etTanggalLahir.setText(tanggalLahir)
 
                     if (jenisKelamin.isNotEmpty()) {
-                        binding.actvJenisKelamin.setText(jenisKelamin, false)
+                        binding.actvJenisKelamin.setText(
+                            jenisKelamin,
+                            false
+                        )
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+
                 if (isAdded) {
-                    Toast.makeText(requireContext(), "Gagal memuat data lama", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Gagal memuat data lama",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
     }
 
     private fun saveChanges() {
+
         val nama = binding.etNamaLengkap.text.toString().trim()
         val gender = binding.actvJenisKelamin.text.toString()
         val tanggalLahir = binding.etTanggalLahir.text.toString().trim()
@@ -140,10 +180,16 @@ class EditProfileFragment : Fragment() {
             binding.tilNamaLengkap.error = "Nama tidak boleh kosong"
             return
         }
+
         binding.tilNamaLengkap.error = null
 
         binding.btnSimpanPerubahan.isEnabled = false
-        Toast.makeText(requireContext(), "Menyimpan perubahan...", Toast.LENGTH_SHORT).show()
+
+        Toast.makeText(
+            requireContext(),
+            "Menyimpan perubahan...",
+            Toast.LENGTH_SHORT
+        ).show()
 
         val updates = mapOf<String, Any>(
             "nama" to nama,
@@ -151,24 +197,43 @@ class EditProfileFragment : Fragment() {
             "jenis_kelamin" to gender
         )
 
-        database.updateChildren(updates).addOnCompleteListener { task ->
-            if (!isAdded || _binding == null) return@addOnCompleteListener
+        database.updateChildren(updates)
+            .addOnCompleteListener { task ->
 
-            binding.btnSimpanPerubahan.isEnabled = true
+                if (!isAdded || _binding == null) return@addOnCompleteListener
 
-            if (task.isSuccessful) {
-                requireActivity().getSharedPreferences("MegavisionPrefs", Context.MODE_PRIVATE)
-                    .edit()
-                    .putString("NAMA", nama)
-                    .apply()
+                binding.btnSimpanPerubahan.isEnabled = true
 
-                Toast.makeText(requireContext(), "Perubahan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                if (task.isSuccessful) {
 
-                findNavController().navigateUp()
-            } else {
-                Toast.makeText(requireContext(), "Gagal menyimpan data: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    requireActivity()
+                        .getSharedPreferences(
+                            "MegavisionPrefs",
+                            Context.MODE_PRIVATE
+                        )
+                        .edit()
+                        .putString("NAMA", nama)
+                        .apply()
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Perubahan berhasil disimpan!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ProfileFragment())
+                        .commit()
+
+                } else {
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Gagal menyimpan data: ${task.exception?.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
-        }
     }
 
     override fun onDestroyView() {
